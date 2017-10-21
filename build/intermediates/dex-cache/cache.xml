@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/home/nkalla/AndroidStudioProjects/SICREMOBILE/fenster/build/intermediates/bundles/default/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="ed948afa34a0c29e960d3d4b0ee8301cecaede83">
+        <dex dex="/home/nkalla/AndroidStudioProjects/SICREMOBILE/app/build/intermediates/pre-dexed/debug/classes_422fc168110ab40c958f7c4968a1ffb78888f039.jar" />
+    </item>
+
+</items>

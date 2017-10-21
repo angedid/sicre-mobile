@@ -1,0 +1,59 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cm.mindef.sed.sicre.mobile.fragments.EnregistrementFragment"
+    android:paddingBottom="75dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/header">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="90"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:id="@+id/liste_affaire_title"
+            android:textSize="14sp"
+            android:text="@string/liste_affaire_title"
+            android:textStyle="bold"
+            android:layout_alignParentLeft="true" />
+        <Button android:id="@+id/btn_add_affaire"
+            android:layout_marginTop="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_weight="10"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:text="@string/add_affaire"
+            android:paddingBottom="0dp"
+            android:paddingTop="0dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:textSize="10sp"
+            android:background="@drawable/background_button"
+            android:textColor="@android:color/white"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
+
+    <ProgressBar
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:id="@+id/loader"
+        android:foregroundGravity="center"
+        android:layout_centerInParent="true"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/liste_affaire"
+        android:layout_below="@id/header"
+        />
+
+</RelativeLayout>

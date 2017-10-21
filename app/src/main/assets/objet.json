@@ -1,0 +1,53 @@
+[
+  {
+    "id":"741",
+    "signe_particulier": "Bouton allumage deteriore",
+    "titre" : "Simsung Pro",
+    "sujet" : "",
+    "description" : "Poste Televiseur d'ecran de dimension environ 250 pouces. De couleur Noire",
+    "marque": "SIMSUNG",
+    "fabricant": "Pirate de Caraibes",
+    "date_creation" : "05/07/2017",
+    "raison" :  {
+      "description": "Saisi au domicile des brigans a Mimboman",
+      "affaire":"987"
+    },
+    "photo": "https://s3.amazonaws.com/afrimalin/images/photo/90/d5/29/90d52910e5c034b8760e5fc0be760e25/62597.jpg",
+    "matricule": "",
+    "numero_de_chassie": "123-456-789"
+  },
+  {
+    "id":"742",
+    "signe_particulier": "Signe Rostand gael Pokam Kouam",
+    "titre" : "Beaute Africaine",
+    "sujet" : "Representation de la beaute Africaine",
+    "description" : "Tableau fait de multiple couleur pour representer la beaute Africaine",
+    "marque": "Rostand gael Pokam Kouam",
+    "fabricant": "Rostand gael Pokam Kouam",
+    "date_creation" : "05/07/2017",
+    "raison" :  {
+      "description": "Cambriolage au Musee Nationale",
+      "affaire":"852"
+    },
+    "photo": "http://www.beal-nenakwe.com/obra.jpg",
+    "matricule": "",
+    "numero_de_chassie": "741-852-963"
+  },
+  {
+  "id":"743",
+  "signe_particulier": "Sieges en cuir sous forme de peau de crocodile de couleur noire",
+  "titre" : "Toyota Avensis",
+  "sujet" : "",
+  "description" : "Vehicule de Marque toyota Avensis berline de couleur grise. Siege de couleur Noir",
+  "marque": "TOYOTA",
+  "fabricant": "TOYOTA JAPON",
+  "date_creation" : "19/04/2017",
+  "raison" :  {
+    "description": "Declaration de perte",
+    "affaire":"654"
+  },
+  "photo": "https://i12.servimg.com/u/f12/09/03/09/70/b8640610.jpg",
+  "matricule": "LT 8540 Z",
+  "numero_de_chassie": "789-654-852"
+}
+]

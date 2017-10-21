@@ -1,0 +1,38 @@
+[
+   {
+    "id":"116931685",
+    "nom" : "Big Mami",
+    "nom" : "Atango Mbom",
+    "prenom" : "Zinga Mohlu",
+    "alias" : "Molo Molo",
+    "civilite" : "M",
+    "date_naissance" : "15/6/1985",
+    "lieu_naissance" : "Douala",
+    "pere" : "Nandoup Jacob",
+    "mere" : "Ngounou Aurelie",
+    "raison" :
+    {
+      "description": "Presume voleur de vehicule dans  l'affaire vole de voiture de Monsieur Nkalla Ehawe",
+      "affaire":"987"
+    },
+    "photo" : "http://www.largeformatphotography.info/portrait-lenses/guelord.jpg"
+  },
+  {
+    "id":"116797847",
+    "nom" : "Big Mami",
+    "prenom" : "Esther Kombi",
+    "alias" : "Grand Mere",
+    "civilite" : "F",
+    "date_naissance" : "23/04/1964",
+    "lieu_naissance" : "Mbokola",
+    "pere" : "Ndeh Louis",
+    "mere" : "Mbokosse",
+    "raison" :
+    {
+      "description": "Presume complice dans l'affaire vole de enfant Ngako Wendeu Boris",
+      "affaire":"1234"
+    },
+    "photo" : "http://www.largeformatphotography.info/portrait-lenses/grenade.jpg"
+  }
+
+]
