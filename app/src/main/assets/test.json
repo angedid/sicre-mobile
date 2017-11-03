@@ -1,0 +1,65 @@
+
+{
+  "status": "success",
+  "error_message": "message d'erreur",
+  "user":{
+    "name": "son nom",
+    "username": "son username",
+    "email": "son email",
+    "photo": "http://198.50.199.116:8090/scriptcase/SICRE_2/user/photo.php?username=username",
+    "langue": "1",
+    "unite": "son unite",
+    "access":{
+      "perquisition":{
+        "read": {
+          "canread":"Y",
+          "ressource": "http://198.50.199.116:8090/scriptcase/SICRE_2/perquisition/perquisition.php"
+        },
+        "create":"Y",
+        "delete": "Y",
+        "update": "Y"
+      },
+      "controle":{
+        "read": "Y",
+        "create":"Y",
+        "delete": "Y",
+        "update": "Y"
+      },
+      "enregistrement":{
+        "read": "Y",
+        "create":"Y",
+        "delete": "Y",
+        "update": "Y"
+      },
+      "alert":{
+        "read": "Y",
+        "create":"Y",
+        "delete": "Y",
+        "update": "Y"
+      }
+    }
+  }
+}
+
+
+/*
+{"user_data":
+{"status":"Success","name":"Admin","email":"admin@admin.com","photo":"Snapshot_20150730_12.JPG","langue":"1","unite":"BRIGARDE DE MELEN"},
+  "perquisition":{"access":"URL VIEW ALL","create":"Y","delete":"Y","update":"Y","export":"Y","print":"Y"},
+  "controle":{"access":"URL VIEW ALL","create":"Y","delete":"Y","update":"Y","export":"Y","print":"Y"},
+  "vehicule":{"access":"URL VIEW ALL","create":"Y","delete":"Y","update":"Y","export":"Y","print":"Y"}}*/
+
+
+{
+  "status":"Success",
+  "error_message":"invalid parameter",
+  "user":{
+    "name":"Admin","email":"admin@admin.com","photo":"http://198.50.199.116:8090/scriptcase/app/SICRE_2/photo_user/","langue":"1","unite":"BRIGARDE DE MELEN",
+    "access":{
+      "perquisition":{
+        "access":{"can":"Y","ressource":"http://198.50.199.116:8090/scriptcase/sicre_2/m_perquisition"},
+        "create":{"can":"Y","ressource":"http://198.50.199.116:8090/scriptcase/sicre_2/m_perquisition"},
+        "delete":{"can":"Y","ressource":"http://198.50.199.116:8090/scriptcase/sicre_2/m_perquisition"},
+        "update":{"can":"Y","ressource":"http://198.50.199.116:8090/scriptcase/sicre_2/m_perquisition"}},
+      "controle":{"access":{"can":"Y","ressource":"http://198.50.199.116:8090/scriptcase/sicre_2/m_controle"},
+        "create":{"can":"Y","ressource":"http://198.50.199.116:8090/scriptcase/sicre_2/m_controle"},"delete":{"can":"Y","ressource":"http://198.50.199.116:8090/scriptcase/sicre_2/m_controle"},"update":{"can":"Y","ressource":"http://198.50.199.116:8090/scriptcase/sicre_2/m_controle"}},"vehicule":{"access":{"can":"Y","ressource":"http://198.50.199.116:8090/scriptcase/sicre_2/m_vehicule"},"create":{"can":"Y","ressource":"http://198.50.199.116:8090/scriptcase/sicre_2/m_vehicule"},"delete":{"can":"Y","ressource":"http://198.50.199.116:8090/scriptcase/sicre_2/m_vehicule"},"update":{"can":"Y","ressource":"http://198.50.199.116:8090/scriptcase/sicre_2/m_vehicule"}}}}}

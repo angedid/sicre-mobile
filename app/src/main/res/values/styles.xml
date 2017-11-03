@@ -6,6 +6,19 @@
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
     </style>
+    <!-- Progress bar horizontal-->
+    <style name="CustomProgressBarHorizontal" parent="android:Widget.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/custom_progress_bar_horizontal</item>
+        <item name="android:minHeight">10dip</item>
+        <item name="android:maxHeight">10dip</item>
+    </style>
+
+    <!-- Progress bar horizontal SeekBar-->
+    <style name="CustomSeekBar" parent="android:Widget.SeekBar">
+        <item name="android:progressDrawable">@drawable/custom_seek_bar</item>
+        <item name="android:thumb">@drawable/icons8_fullmoon_16</item>
+        <item name="android:thumbOffset">0dip</item>
+    </style>
 </resources>
 
 

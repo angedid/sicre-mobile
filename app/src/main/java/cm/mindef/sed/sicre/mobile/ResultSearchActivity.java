@@ -3,6 +3,7 @@ package cm.mindef.sed.sicre.mobile;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
@@ -70,10 +71,13 @@ public class ResultSearchActivity extends AppCompatActivity {
             try {
                 JSONArray jsonArray = new JSONArray(result);
                 for (int i = 0; i < jsonArray.length(); i++){
-                    listeDindividus.add(Individu.getInstance(jsonArray.getJSONObject(i)));
+                    Log.e("getJSONObject" + i + ":  ", jsonArray.getJSONObject(i).toString());
+                    Individu individu = Individu.getInstance(jsonArray.getJSONObject(i));
+                    if (individu != null)
+                        listeDindividus.add(individu);
                 }
             } catch (JSONException e) {
-                //e.printStackTrace();
+                Log.e("RESULT RESEARCH", e.toString());
             }
 
             if (listeDindividus.size() == 0){
@@ -99,7 +103,7 @@ public class ResultSearchActivity extends AppCompatActivity {
                     listeDesObjets.add(Objet.getInstance(jsonArray.getJSONObject(i)));
                 }
             } catch (JSONException e) {
-                //e.printStackTrace();
+
             }
 
             if (listeDesObjets.size() == 0){
@@ -112,14 +116,11 @@ public class ResultSearchActivity extends AppCompatActivity {
                 result_num_view.setVisibility(View.VISIBLE);
                 TextView result_num_text_view = result_num_view.findViewById(R.id.result_num_text_view);
                 result_num_text_view.setText(getString(R.string.nombre_trouve) + ": " + listeDesObjets.size());
-
                 listView = findViewById(R.id.result_list);
                 objetAdapter = new ObjetAdapter(this, listeDesObjets);
                 listView.setAdapter(objetAdapter);
             }
         }
-
-
     }
 
 

@@ -1,0 +1,87 @@
+
+app_root = http://198.50.199.116:8888/scriptcase/app/SICRE/
+
+1- Authentification
+
+    url: app_root + "m_login/?" + parameters
+    Methode: get
+
+     format de reponse:
+
+    Cas succes.
+     {
+       "status": "success",
+       "error_message": "message d'erreur",
+       "user":{
+         "name": "son nom",
+         "username": "son username",
+         "email": "son email",
+         "photo": "http://198.50.199.116:8090/scriptcase/SICRE_2/user/photo.php?username=username",
+         "langue": "1",
+         "unite": "son unite",
+         "access":{
+           "perquisition":{
+             "read": {
+               "can":"Y",
+               "ressource": "http://198.50.199.116:8090/scriptcase/SICRE_2/perquisition/m_perquisition.php"
+             },
+             "create":{
+                "can":"Y",
+                "ressource": "http://198.50.199.116:8090/scriptcase/SICRE_2/perquisition/m_perquisition.php"
+             }
+             "delete": {
+               "can":"Y",
+               "ressource": "http://198.50.199.116:8090/scriptcase/SICRE_2/perquisition/m_perquisition.php"
+            },
+             "update": {
+               "can":"Y",
+               "ressource": "http://198.50.199.116:8090/scriptcase/SICRE_2/perquisition/m_perquisition.php"
+            }
+           },
+           "controle":{
+             "read": {
+                 "can":"Y",
+                 "ressource": "http://198.50.199.116:8090/scriptcase/SICRE_2/perquisition/m_perquisition.php"
+              },
+             "create":{
+                  "can":"Y",
+                  "ressource": "http://198.50.199.116:8090/scriptcase/SICRE_2/perquisition/m_perquisition.php"
+               },
+             "delete": "Y",
+             "update": "Y"
+           },
+           "enregistrement":{
+             "read": "Y",
+             "create":"Y",
+             "delete": "Y",
+             "update": "Y"
+           },
+           "alert":{
+             "read": "Y",
+             "create":"Y",
+             "delete": "Y",
+             "update": "Y"
+           }
+         }
+       }
+     }
+
+      Cas erreur.
+
+      {
+         "status": "failed",
+         "error_message": "invalide Username or password"
+
+       }
+
+
+Recherche
+
+
+
+
+url: app_root + "m_research/?" + "object=individu&option=alias&keyworc=valeurAlias"
+    Methode: get
+
+     format de reponse:
+

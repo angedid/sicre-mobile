@@ -1,10 +1,16 @@
 package cm.mindef.sed.sicre.mobile;
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Handler;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -18,15 +24,21 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
@@ -42,8 +54,10 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManagerFactory;
 
+import cm.mindef.sed.sicre.mobile.domain.User;
 import cm.mindef.sed.sicre.mobile.utils.Constant;
 
+import cm.mindef.sed.sicre.mobile.utils.Credentials;
 import dmax.dialog.SpotsDialog;
 
 public class AutenticationActivity extends AppCompatActivity {
@@ -54,11 +68,48 @@ public class AutenticationActivity extends AppCompatActivity {
     private TextInputLayout inputLayoutUserName, inputLayoutPassword;
     private Button btnSignUp;
     private TextView error_message;
+    private CheckBox checkbox_stay_connected;
+    //private LinearLayout wall_paper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_autentication);
+        Constant.who_is_showing = getClass().getSimpleName();
+
+        // RelativeLayout activity_main = (RelativeLayout)Logger.thisActivity.findViewById(R.id.activity_main); //context.getResources().getLayout(R.layout.activity_main).get;
+        TextView networState_logger = (TextView) findViewById(R.id.networState_logger);
+
+        // Button button = (Button) activity_main.findViewById(R.id.imageButton);
+
+        if (Constant.isInternetOn(getApplicationContext())){
+            networState_logger.setBackgroundColor(Color.rgb(0,200, 0));
+            networState_logger.setTextColor(Color.WHITE);
+            networState_logger.setText(getString(R.string.yes_internet));
+            networState_logger.setVisibility(View.VISIBLE);
+
+            final TextView tv = networState_logger;
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    tv.setVisibility(View.GONE);
+                }
+            }, Constant.TIMEOUT);
+
+
+        }else{
+
+            networState_logger.setBackgroundColor(Color.rgb(200, 0 ,0));
+            networState_logger.setTextColor(Color.WHITE);
+            networState_logger.setText(getString(R.string.no_internet));
+            networState_logger.setVisibility(View.VISIBLE);
+        }
+
+        //wall_paper = findViewById(R.id.wall_paper);
+        //wall_paper.setVisibility(View.VISIBLE);
+
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -78,6 +129,8 @@ public class AutenticationActivity extends AppCompatActivity {
         inputLayoutPassword = (TextInputLayout) findViewById(R.id.TextInputLayout_password);
         inputUsername = (EditText) findViewById(R.id.EditText_username);
         inputPassword = (EditText) findViewById(R.id.EditText_password);
+        checkbox_stay_connected = (CheckBox) findViewById(R.id.checkbox_stay_connected);
+
         btnSignUp = (Button) findViewById(R.id.btn_signup);
         error_message = (TextView) findViewById(R.id.error_message);
 
@@ -85,21 +138,15 @@ public class AutenticationActivity extends AppCompatActivity {
         inputPassword.addTextChangedListener(new MyTextWatcher(inputPassword));
 
 
-        SharedPreferences prefs = getSharedPreferences(Constant.PreferenceCredential, MODE_PRIVATE);
-        String username = prefs.getString(Constant.USERNAME, null);
-        String password = prefs.getString(Constant.PASSWORD, null);
-        String stay_connected = prefs.getString(Constant.STAY_CONNECTED, null);
-        if (username != null && password !=null && stay_connected != null){
-            inputUsername.setText(username);
-            inputPassword.setText(password);
-            submitForm();
-        }else{
-
-        }
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                boolean isInternetOn = Constant.isInternetOn(getApplicationContext());
+                if (!isInternetOn){
+                    Toast.makeText(getApplicationContext(), getString(R.string.verify_connection), Toast.LENGTH_LONG).show();
+                    return;
+                }
                 error_message.setText("");
                 error_message.setVisibility(View.GONE);
                 submitForm();
@@ -120,9 +167,6 @@ public class AutenticationActivity extends AppCompatActivity {
             String stay_connected = prefs.getString(Constant.STAY_CONNECTED, null);
             Toast.makeText(getApplicationContext(), "stay_connected: " + stay_connected, Toast.LENGTH_LONG).show();
         }
-
-
-
     }
 
     private void submitForm() {
@@ -134,8 +178,10 @@ public class AutenticationActivity extends AppCompatActivity {
             return;
         }
 
-        Authenticator authenticator = new Authenticator(inputUsername.getText().toString().trim(), inputPassword.getText().toString());
-        authenticator.execute(Constant.URL_LINK);
+        String stayConnected = (checkbox_stay_connected.isChecked())? Constant.OK:Constant.KO;
+        Authenticator authenticator = new Authenticator(inputUsername.getText().toString().trim(), inputPassword.getText().toString(), stayConnected);
+        authenticator.execute(Constant.URL_LINK + Constant.LOGIN_PATH +  "?" + Constant.USERNAME + "=" + inputUsername.getText().toString().trim() +
+                "&" + Constant.PASSWORD + "=" + inputPassword.getText().toString());
         //Toast.makeText(getApplicationContext(), "Thank You!: " + inputUsername.getText().toString() + " || " + inputPassword.getText().toString(), Toast.LENGTH_SHORT).show();
     }
 
@@ -151,8 +197,10 @@ public class AutenticationActivity extends AppCompatActivity {
         return true;
     }
 
+
     private boolean validatePassword() {
-        if (inputPassword.getText().toString().isEmpty() /*|| inputPassword.getText().toString().trim().length() < Constant.MIN_LENGTH_PASSWORD*/) {
+
+        if (inputPassword.getText().toString().isEmpty() /*|| inputPassword.getText().toString().length() < Constant.MIN_LENGTH_PASSWORD*/) {
             inputLayoutPassword.setError(getString(R.string.err_msg_password));
             requestFocus(inputPassword);
             return false;
@@ -193,7 +241,7 @@ public class AutenticationActivity extends AppCompatActivity {
                     validateUserName();
                     break;
                 case R.id.EditText_password:
-                    validatePassword();
+                    //validatePassword();
                     break;
             }
         }
@@ -203,9 +251,12 @@ public class AutenticationActivity extends AppCompatActivity {
     private class Authenticator extends AsyncTask<String, Integer, String> {
         private AlertDialog dialog;
         private String username, password;
-        public Authenticator(String username, String password) {
+        private String stayConnected;
+        public Authenticator(String username, String password, String stayConnected) {
             this.username = username;
             this.password = password;
+            this.stayConnected = stayConnected;
+            this.stayConnected = stayConnected;
 
             dialog = new SpotsDialog(AutenticationActivity.thisActivity);
         }
@@ -214,6 +265,7 @@ public class AutenticationActivity extends AppCompatActivity {
             super.onPreExecute();
             dialog.setMessage(getResources().getString(R.string.chargement));
             dialog.show();
+
         }
 
         @Override
@@ -223,9 +275,16 @@ public class AutenticationActivity extends AppCompatActivity {
 
             String resultat = "";
             URL url = null;
-            HttpsURLConnection urlConnection = null;
+            HttpURLConnection urlConnection = null;
 
-            SSLContext context = null;
+            Log.e("URL", url_str);
+            try {
+                url = new URL(url_str);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            /*SSLContext context = null;
             try {
                 CertificateFactory cf = CertificateFactory.getInstance("X.509");
 
@@ -270,12 +329,13 @@ public class AutenticationActivity extends AppCompatActivity {
                 return Constant.KO;
             } catch (KeyManagementException e) {
                 return Constant.KO;
-            }
+            }*/
 
-            if (1==1) return Constant.KO;
+            //if (1==1) return Constant.KO;
 
             try {
 
+                urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
                 //urlConnection.setDoOutput(true);
                 urlConnection.setDoInput(true);
@@ -308,7 +368,7 @@ public class AutenticationActivity extends AppCompatActivity {
                     //os.close();
                     resultat = sb.toString();
                 }else{
-
+                    return Constant.KO;
                 }
 
 
@@ -326,27 +386,61 @@ public class AutenticationActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
 
+            //wall_paper.setVisibility(View.GONE);
 
             Log.e("result log", result);
 
-            if (!result.equals(Constant.KO)){
+            if (result.equals(Constant.KO)){
                 error_message.setVisibility(View.VISIBLE);
-                error_message.setText(R.string.connection_error);
+                error_message.setText(getString(R.string.an_error_occure));
                 return;
             }
 
 
-            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-            intent.putExtra(Constant.USERNAME, this.username);
-            intent.putExtra(Constant.PASSWORD, this.password);
+            try {
+                JSONObject jsonObject = new JSONObject(result);
+                String status = jsonObject.getString(Constant.STATUS);
+                if (status.equals(Constant.FAILED)){
+                    error_message.setVisibility(View.VISIBLE);
+                    error_message.setText(getString(R.string.connection_error));
+                    return;
+                }
 
-            SharedPreferences.Editor editor = getSharedPreferences(Constant.PreferenceCredential, MODE_PRIVATE).edit();
-            editor.putString(Constant.USERNAME, this.username);
-            editor.putString(Constant.PASSWORD, this.password);
-            editor.commit();
+                JSONObject userJsonObj = jsonObject.getJSONObject(Constant.USER);
 
-            startActivity(intent);
-            inputPassword.setText("");
+                User user = User.getInstance(userJsonObj);
+
+                if (user == null){
+                    error_message.setVisibility(View.VISIBLE);
+                    error_message.setText(getString(R.string.an_error_occure) + " voiala" );
+                    return;
+                }
+
+
+
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                intent.putExtra(Constant.USERNAME, this.username);
+                intent.putExtra(Constant.PASSWORD, this.password);
+                intent.putExtra(Constant.USER, user);
+
+                SharedPreferences.Editor editor = getSharedPreferences(Constant.PreferenceCredential, MODE_PRIVATE).edit();
+                editor.putString(Constant.USERNAME, this.username);
+                editor.putString(Constant.PASSWORD, this.password);
+                editor.commit();
+
+                if (checkbox_stay_connected.isChecked())
+                    Credentials.saveCredential(getApplicationContext(), this.username, this.password, this.stayConnected);
+
+                startActivity(intent);
+                inputPassword.setText("");
+                finish();
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+
 
         }
 
@@ -363,6 +457,81 @@ public class AutenticationActivity extends AppCompatActivity {
                 }
                 return retVal;
             }
+        }
+    }
+
+    public static class NetworkListener extends BroadcastReceiver {
+        //private static final String TAG = "NetworkConnectivityListener";
+        private NetworkInfo.State mState;
+        private NetworkInfo mNetworkInfo;
+        private NetworkInfo mOtherNetworkInfo;
+        private String mReason;
+        private boolean mIsFailover;
+        private static final boolean DBG = true;
+        @Override
+        public void onReceive(Context context, final Intent intent) {
+            String action = intent.getAction();
+            if (action.equals(ConnectivityManager.CONNECTIVITY_ACTION)){
+                boolean noConnectivity = intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
+
+                if (noConnectivity) {
+                    mState = NetworkInfo.State.DISCONNECTED;
+                } else {
+                    mState = NetworkInfo.State.CONNECTED;
+                }
+
+                mNetworkInfo = (NetworkInfo)
+                        intent.getParcelableExtra(ConnectivityManager.EXTRA_EXTRA_INFO);
+                mOtherNetworkInfo = (NetworkInfo)
+                        intent.getParcelableExtra(ConnectivityManager.EXTRA_OTHER_NETWORK_INFO);
+
+                mReason = intent.getStringExtra(ConnectivityManager.EXTRA_REASON);
+                mIsFailover = intent.getBooleanExtra(ConnectivityManager.EXTRA_IS_FAILOVER, false);
+                //context.getApplicationContext().getCon
+
+                if (Constant.who_is_showing.equals("AutenticationActivity")){
+
+
+                    // RelativeLayout activity_main = (RelativeLayout)Logger.thisActivity.findViewById(R.id.activity_main); //context.getResources().getLayout(R.layout.activity_main).get;
+                    TextView networState_logger = (TextView) AutenticationActivity.thisActivity.findViewById(R.id.networState_logger);
+
+                    // Button button = (Button) activity_main.findViewById(R.id.imageButton);
+
+                    if (mState.toString().equals(Constant.CONNECTED)){
+                        networState_logger.setBackgroundColor(Color.rgb(0,200, 0));
+                        networState_logger.setTextColor(Color.WHITE);
+                        networState_logger.setText(AutenticationActivity.thisActivity.getString(R.string.yes_internet));
+                        networState_logger.setVisibility(View.VISIBLE);
+
+                        final TextView tv = networState_logger;
+
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                tv.setVisibility(View.GONE);
+                            }
+                        }, Constant.TIMEOUT);
+
+
+                    }else{
+
+                        networState_logger.setBackgroundColor(Color.rgb(200, 0 ,0));
+                        networState_logger.setTextColor(Color.WHITE);
+                        networState_logger.setText(AutenticationActivity.thisActivity.getString(R.string.no_internet));
+                        networState_logger.setVisibility(View.VISIBLE);
+                    }
+
+                    //View view = context.getResources().getLayout(R.layout.);
+                    if (DBG) {
+                        Log.e("ListenConnection", "Logger: onReceive(): mNetworkInfo=" + mNetworkInfo +  " mOtherNetworkInfo = "
+                                + (mOtherNetworkInfo == null ? "[none]" : mOtherNetworkInfo +
+                                " noConn=" + noConnectivity) + " mState=" + mState.toString());
+                    }
+                }
+
+                //if (context.getClass() instanceof  )
+            }
+
         }
     }
 }

@@ -2,6 +2,7 @@ package cm.mindef.sed.sicre.mobile.utils;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ContextThemeWrapper;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.widget.MediaController;
@@ -34,5 +35,7 @@ public class MusicController extends MediaController {
         }
         return false;
     }
+
+
 
 }

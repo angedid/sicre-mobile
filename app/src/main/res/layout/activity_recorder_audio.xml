@@ -8,7 +8,8 @@
     android:paddingLeft="0dp"
     android:paddingRight="0dp"
     android:paddingTop="0dp"
-    tools:context="cm.mindef.sed.sicre.mobile.RecorderAudioActivity">
+    tools:context="cm.mindef.sed.sicre.mobile.RecorderAudioActivity"
+    android:background="@android:color/white">
 
     <!--<android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -25,7 +26,7 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
     </android.support.design.widget.AppBarLayout>-->
 
-    <ImageView
+    <!--<ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
@@ -33,79 +34,104 @@
         android:layout_centerHorizontal="true"
         android:src="@drawable/gendarmerie"
         android:layout_marginTop="-60dp"
-        android:layout_below="@id/appBarLayout"/>
+        android:layout_below="@id/appBarLayout"/>-->
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:text="Record"
-        android:id="@+id/button"
-        android:layout_below="@+id/imageView"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="37dp"
-        android:paddingBottom="0dp"
-        android:paddingTop="0dp"
-        android:paddingLeft="3dp"
-        android:paddingRight="3dp"
-        android:textSize="10sp"
-        android:background="@drawable/background_button"
-        android:textColor="@android:color/white"
-        android:textAlignment="center"
-
-        />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:text="STOP"
-        android:id="@+id/button2"
-        android:layout_alignTop="@+id/button"
+    <cm.mindef.sed.sicre.mobile.views.VisualizerView
+        android:id="@+id/visualizer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
-        android:paddingBottom="0dp"
-        android:paddingTop="0dp"
-        android:paddingLeft="3dp"
-        android:paddingRight="3dp"
-        android:textSize="10sp"
-        android:background="@drawable/background_button"
-        android:textColor="@android:color/white"
-        android:textAlignment="center"
+        android:layout_marginBottom="90dp"
+        android:background="@android:color/white"
         />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:text="Play"
-        android:id="@+id/button3"
-        android:layout_alignTop="@+id/button2"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:paddingBottom="0dp"
-        android:paddingTop="0dp"
-        android:paddingLeft="3dp"
-        android:paddingRight="3dp"
-        android:textSize="10sp"
-        android:background="@drawable/background_button"
-        android:textColor="@android:color/white"
-        android:textAlignment="center"
-        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/enregistrement_en_cours"
+        android:textColor="@color/colorAccent"
+        android:textSize="12sp"
+        android:text="@string/enregistrement_en_cours"
+        android:layout_below="@id/visualizer"
+        android:layout_marginTop="-90dp"
+        android:visibility="gone"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:text="STOP PLAYING RECORDING "
-        android:id="@+id/button4"
-        android:layout_below="@+id/button2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:paddingBottom="0dp"
-        android:paddingTop="0dp"
-        android:paddingLeft="3dp"
-        android:paddingRight="3dp"
-        android:textSize="10sp"
-        android:background="@drawable/background_button"
-        android:textColor="@android:color/white"
-        android:textAlignment="center"
-        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/visualizer"
+        android:layout_marginTop="-70dp">
+
+        <ImageButton
+            android:src="@drawable/icons8_microphone_60"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Record"
+            android:id="@+id/record_or_stop"
+            android:paddingBottom="0dp"
+            android:paddingTop="0dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:textSize="10sp"
+            android:textColor="@android:color/white"
+            android:background="@android:color/white"
+            android:textAlignment="center"
+
+            />
+
+        <!--<ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="STOP"
+            android:id="@+id/button2"
+            android:src="@drawable/icons8_play_24_i"
+            android:paddingBottom="0dp"
+            android:paddingTop="0dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:textSize="10sp"
+            android:textColor="@android:color/white"
+            android:textAlignment="center"
+            />-->
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/play_record"
+            android:layout_alignParentRight="true"
+            android:paddingBottom="0dp"
+            android:paddingTop="0dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:textSize="10sp"
+            android:src="@drawable/icons8_play_60"
+            android:background="@android:color/white"
+            android:textColor="@android:color/white"
+            android:textAlignment="center"
+            android:visibility="invisible"
+            />
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/stop_play_record"
+            android:src="@drawable/icons8_stop_60"
+            android:paddingBottom="0dp"
+            android:paddingTop="0dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:textSize="10sp"
+            android:background="@android:color/white"
+            android:textColor="@android:color/white"
+            android:textAlignment="center"
+            android:visibility="invisible"
+            />
+
+    </LinearLayout>
 </RelativeLayout>
 
 

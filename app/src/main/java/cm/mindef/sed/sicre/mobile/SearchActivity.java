@@ -23,7 +23,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -45,18 +49,23 @@ import dmax.dialog.SpotsDialog;
 
 public class SearchActivity extends AppCompatActivity {
 
-    private String keyType;
+    private int keyType;
+
+    private String object;
+
     private Map<String, String> correspondance;
+
     private Toolbar toolbar;
 
     private TextView type_shower;
 
     private int selectedIndex = 0;
 
+    private String selectedString;
+
     public static AppCompatActivity thisActivity;
 
-    private AppCompatSpinner spinner_critere_recherche_individu, spinner_critere_recherche_vehicule,
-            spinner_critere_recherche_objet;
+    private AppCompatSpinner spinner_critere_recherche_individu, spinner_critere_recherche_vehicule, spinner_critere_recherche_objet;
 
     private EditText EditText_mot_cle;
 
@@ -86,6 +95,8 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectedIndex = i;
+                selectedString = spinner_critere_recherche_individu.getSelectedItem().toString();
+                Log.e("selectedString", selectedString);
             }
 
             @Override
@@ -98,6 +109,8 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectedIndex = i;
+                selectedString = spinner_critere_recherche_vehicule.getSelectedItem().toString();
+                Log.e("selectedString", selectedString);
             }
 
             @Override
@@ -110,6 +123,8 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectedIndex = i;
+                selectedString = spinner_critere_recherche_objet.getSelectedItem().toString();
+                Log.e("selectedString", selectedString);
             }
 
             @Override
@@ -123,30 +138,39 @@ public class SearchActivity extends AppCompatActivity {
         correspondance = Constant.getSearchTypeValue();
 
         Bundle bundle = getIntent().getExtras();
-        keyType = bundle.getString("type");
+        keyType = bundle.getInt(Constant.TYPE);
 
         type_shower = (TextView) findViewById(R.id.type_shower);
-        type_shower.setText(correspondance.get(keyType));
+        type_shower.setText(correspondance.get("" + keyType));
 
 
-        if (keyType.equals("" + Constant.SEARCH_INDIVIDU)){
+        if (keyType == Constant.SEARCH_INDIVIDU){
             //Toast.makeText(getApplicationContext(), "enter", Toast.LENGTH_LONG).show();
             hideOther(R.id.spinner_critere_recherche_individu);
+            object = "individu";
         }
 
-        if (keyType.equals("" + Constant.SEARCH_VEHICULE)){
+        if (keyType == Constant.SEARCH_VEHICULE){
             hideOther(R.id.spinner_critere_recherche_vehicule);
+            object = "vehicule";
         }
 
-        if (keyType.equals("" + Constant.SEARCH_OBJECT)){
+        if (keyType == Constant.SEARCH_OBJECT){
             hideOther(R.id.spinner_critere_recherche_objet);
+            object = "objet";
         }
 
         btn_search = findViewById(R.id.btn_search);
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                submitForm();
+
+                if (Constant.isInternetOn(getApplicationContext())){
+                    submitForm();
+                }else{
+                    Toast.makeText(getApplicationContext(), getString(R.string.no_internet), Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
@@ -199,22 +223,26 @@ public class SearchActivity extends AppCompatActivity {
 
     public String makeQuery(){
 
+        //username=admin&password=admin&object=individu&option=nom_prenom&nom=ABA&prenom=aba
 
         Credentials credentials = Credentials.getInstance(this);
 
         String query = "?" + Constant.USERNAME + "=" + credentials.getUsername() + "&" + Constant.PASSWORD + "=" + credentials.getPassword() ;
 
-        query += "&" + Constant.DOMAINE + "=" + keyType;
-        query += "&" + Constant.CRITERIA + "=" + selectedIndex;
-        query += "&" + Constant.KEY_WORD + "=" + EditText_mot_cle.getText().toString();
+        query += "&" + Constant.OBJECT + "=" + object;
+        try {
+            query += "&" + Constant.OPTION + "=" + selectedString;
+            query += "&" + Constant.KEY_WORD + "=" + URLEncoder.encode(EditText_mot_cle.getText().toString(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
 
+        }
         return  query;
     }
 
     public void sendRequest(){
         String query = makeQuery();
         Researcher researcher = new Researcher();
-        researcher.execute(Constant.URL_LINK, query);
+        researcher.execute(Constant.URL_LINK + Constant.RESEARCH_PATH, query);
     }
 
     private class Researcher extends AsyncTask<String, Integer, String> {
@@ -238,9 +266,16 @@ public class SearchActivity extends AppCompatActivity {
             String query = strings[1];
             String resultat = "";
             URL url = null;
-            HttpsURLConnection urlConnection = null;
+            HttpURLConnection urlConnection = null;
 
-            SSLContext context = null;
+            try {
+                url = new URL(url_str + query);
+                Log.e("URLLLLLLL", url.toString());
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            /*SSLContext context = null;
             try {
                 CertificateFactory cf = CertificateFactory.getInstance("X.509");
 
@@ -269,6 +304,7 @@ public class SearchActivity extends AppCompatActivity {
                 url = new URL(url_str + query);
 
 
+                Log.e("URL STRING RESEARCHER", url.toString());
                 urlConnection = (HttpsURLConnection) url.openConnection();
                 urlConnection.setSSLSocketFactory(context.getSocketFactory());
                 urlConnection.setHostnameVerifier(new NullHostNameVerifier());
@@ -285,12 +321,13 @@ public class SearchActivity extends AppCompatActivity {
                 return Constant.KO;
             } catch (KeyManagementException e) {
                 return Constant.KO;
-            }
+            }*/
 
-            if (1==1) return Constant.KO;
+            //if (1==1) return Constant.KO;
 
             try {
 
+                urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
 
                 //urlConnection.setDoOutput(true);
@@ -348,19 +385,22 @@ public class SearchActivity extends AppCompatActivity {
             }
 
 
-            Log.e("result log", result);
+            Log.e("result log 11111", result);
 
-            if (!result.equals(Constant.KO)){
+            if (result.equals(Constant.KO)){
                 //error_message.setVisibility(View.VISIBLE);
                 //error_message.setText(R.string.connection_error);
+                Toast.makeText(SearchActivity.this, getString(R.string.an_error_occure), Toast.LENGTH_SHORT).show();
                 return;
             }
 
 
             Intent intent = new Intent(getApplicationContext(), ResultSearchActivity.class);
-            String resultat = null;
+            /*String resultat = null;
             try {
-                InputStream inputStream  =  thisActivity.getAssets().open("objet.json");
+
+                String fileName = (keyType == Constant.SEARCH_INDIVIDU)? "individu.json":(keyType == Constant.SEARCH_VEHICULE)? "individu.json":"individu.json";
+                InputStream inputStream  =  thisActivity.getAssets().open(fileName);
                 BufferedReader br = null;
                 StringBuilder sb = new StringBuilder();
                 String line;
@@ -388,10 +428,12 @@ public class SearchActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            intent.putExtra(Constant.RESULT, resultat);
+            Log.e("RISULTATOOOOOOOOOOOOO", resultat);*/
+            intent.putExtra(Constant.RESULT, result);
             //intent.putExtra(Constant.DOMAINE,  Constant.SEARCH_INDIVIDU);
-            intent.putExtra(Constant.DOMAINE,  Constant.SEARCH_VEHICULE);
-            intent.putExtra(Constant.SEARCH_REULT_DISPLAY_VALUE, Constant.getSearchTypeValue().get("" + Constant.SEARCH_VEHICULE_RESULT));
+
+            intent.putExtra(Constant.DOMAINE,  keyType);
+            intent.putExtra(Constant.SEARCH_REULT_DISPLAY_VALUE, Constant.getSearchTypeValue().get("" + keyType));
 
             startActivity(intent);
             //inputPassword.setText("");

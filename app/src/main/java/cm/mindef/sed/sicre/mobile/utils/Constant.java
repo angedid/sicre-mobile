@@ -1,5 +1,9 @@
 package cm.mindef.sed.sicre.mobile.utils;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +15,8 @@ public class Constant {
     public final static String OK = "OK";
     public final static String KO = "KO";
 
+    public final static String PERQUISITION_ACCESS = "URL VIEW ALL";
+
     public final static String USERNAME = "username";
     public final static String PASSWORD = "password";
     public final static String STAY_CONNECTED = "stay_connected";
@@ -20,7 +26,9 @@ public class Constant {
     public static final String HOSTNAME = "cm.mindef.sed.sicre.mobile";
     public static final int MIN_LENGTH_PASSWORD = 6;
 
-    public static final String URL_LINK = "https://google.com";
+    public static final String URL_LINK = "http://198.50.199.116:8090/scriptcase/app/SICRE_2/";
+
+    public static final String LOGIN_PATH = "m_login/";
 
     public static final int SEARCH_INDIVIDU = 1;
     public static final int SEARCH_VEHICULE = 2;
@@ -40,7 +48,7 @@ public class Constant {
     private static final String SEARCH_OBJECT_VALUE_RESULT  = "Objets Trouves";
 
     public static final String CRITERIA = "criteria";
-    public static final String KEY_WORD = "key_word";
+    public static final String KEY_WORD = "keyword";
     public static final String DOMAINE = "domaine";
     public static final String RESULT = "result";
     public static final String SEARCH_REULT_DISPLAY_VALUE = "search_result_display_value";
@@ -58,11 +66,30 @@ public class Constant {
     public static final int REQUEST_IMAGE_CAPTURE = 1;
     public static final Object AFFAIRE_LIST_REQUEST_TAG = "affaire_list_request_tag";
     public static final String AFFAIRE = "affaire";
+    public static final long TIMEOUT = 5000;
+    public static final String TYPE = "type";
+    public static final String OBJECT = "object";
+    public static final String OPTION = "option";
+    public static final String INDIVIDU = "individu";
+    public static final String IDENTIFICATION = "identification";
+    public static final String STATUS = "status";
+    public static final String FAILED = "failed";
+    public static final String USER = "user";
+    public static final String RESEARCH_PATH = "m_research/";
+    public static final String ID = "id";
+    public static final String PHOTO = "photo";
+    public static final String PROFILE_GAUCHE = "profil_gauche";
+    public static final String PROFILE_DROIT = "profil_droit";
+    public static final String FACE = "face";
+    public static final String PORTRAIT = "portrait";
+    public static final String RAS = "Rien a Signaler";
 
     public static Map<String, Object> data = new HashMap<String, Object>();
-    public static String PERQUISITION_IMAGE_ROOT = "perquisitions_images_";
-    public static String PERQUISITION_SOUND_ROOT = "perquisitions_sounds_";
-    public static String PERQUISITION_VIDEO_ROOT = "perquisitions_videos_";
+    public static final String PERQUISITION_IMAGE_ROOT = "perquisitions_images_";
+    public static final String PERQUISITION_SOUND_ROOT = "perquisitions_sounds_";
+    public static final String PERQUISITION_VIDEO_ROOT = "perquisitions_videos_";
+    public static String who_is_showing = "";
+    public static final String CONNECTED = "CONNECTED";
 
     public static final int RequestPermissionCode = 1;
 
@@ -80,6 +107,14 @@ public class Constant {
         map.put("" + SEARCH_OBJECT_RESULT, SEARCH_OBJECT_VALUE_RESULT);
 
         return map;
+    }
+
+
+    public static boolean isInternetOn(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        return isConnected;
     }
 
 

@@ -1,13 +1,16 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cm.mindef.sed.sicre.mobile.fragments.AlertFragment">
-
-    <!-- TODO: Update blank fragment layout -->
+    tools:context="cm.mindef.sed.sicre.mobile.fragments.AlertFragment"
+    android:background="@android:color/white">
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:id="@+id/networState_logger"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        />
 
-</FrameLayout>
+</RelativeLayout>

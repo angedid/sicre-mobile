@@ -22,9 +22,7 @@ import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.VideoView;
 
-import com.malmstein.fenster.*;
-import com.malmstein.fenster.controller.MediaFensterPlayerController;
-import com.malmstein.fenster.view.FensterVideoView;
+
 
 import cm.mindef.sed.sicre.mobile.utils.Constant;
 
@@ -38,8 +36,6 @@ public class VideoPlayerActivity extends AppCompatActivity implements /* Surface
 {
 
     private String url ;
-    private FensterVideoView play_video_texture;
-    private MediaFensterPlayerController play_video_controller;
 
     private VideoView myVideo;
     private MediaController vidControl;

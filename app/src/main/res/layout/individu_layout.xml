@@ -14,23 +14,112 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="5dp">
-        <com.facebook.drawee.view.SimpleDraweeView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            fresco:fadeDuration="300"
-            android:layout_gravity="center"
-            fresco:placeholderImage="@android:drawable/ic_lock_idle_alarm"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:id="@+id/photo"
-            />
-
-        <ProgressBar
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/progress_photo"
-            android:foregroundGravity="center"
-            android:layout_centerInParent="true"/>
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:id="@+id/photoG"
+                        />
+                    <ProgressBar
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:id="@+id/progress_photoG"
+                        android:foregroundGravity="center"
+
+                        android:layout_centerInParent="true"/>
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:id="@+id/photoD"
+                        />
+                    <ProgressBar
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:id="@+id/progress_photoD"
+                        android:foregroundGravity="center"
+
+                        android:layout_centerInParent="true"/>
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:id="@+id/photoFace"
+                        />
+                    <ProgressBar
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:id="@+id/progress_photoFace"
+                        android:foregroundGravity="center"
+
+                        android:layout_centerInParent="true"/>
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:id="@+id/photoPortrait"
+                        />
+                    <ProgressBar
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:id="@+id/progress_photoPortrait"
+                        android:foregroundGravity="center"
+
+                        android:layout_centerInParent="true"/>
+                </RelativeLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+
         <Button android:id="@+id/btn_signal"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
@@ -171,6 +260,34 @@
             android:layout_marginBottom="16dp"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:text="@string/status"
+            android:layout_marginBottom="16dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:id="@+id/status"
+            android:layout_marginBottom="16dp"/>
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -245,7 +362,7 @@
             android:textColor="@color/colorAccent"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:text="@string/pere"
+            android:text="@string/pays_dorigine"
             android:layout_marginBottom="16dp"/>
         <TextView
             android:layout_width="wrap_content"
@@ -254,7 +371,7 @@
             android:textColor="@color/colorAccent"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:id="@+id/pere"
+            android:id="@+id/pays_origine"
             android:layout_marginBottom="16dp"/>
     </LinearLayout>
 
@@ -274,7 +391,7 @@
             android:textColor="@color/colorAccent"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:text="@string/mere"
+            android:text="@string/profession"
             android:layout_marginBottom="16dp"/>
         <TextView
             android:layout_width="wrap_content"
@@ -283,7 +400,93 @@
             android:textColor="@color/colorAccent"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:id="@+id/mere"
+            android:id="@+id/profession"
+            android:layout_marginBottom="16dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:text="@string/cni"
+            android:layout_marginBottom="16dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:id="@+id/cni"
+            android:layout_marginBottom="16dp"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:text="@string/cni_date"
+            android:layout_marginBottom="16dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:id="@+id/cni_date"
+            android:layout_marginBottom="16dp"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:text="@string/cni_expire"
+            android:layout_marginBottom="16dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:id="@+id/cni_expire"
             android:layout_marginBottom="16dp"/>
     </LinearLayout>
 
@@ -304,7 +507,7 @@
             android:textColor="@color/colorAccent"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:text="@string/raison"
+            android:text="@string/cni_autorite"
             android:layout_marginBottom="16dp"/>
         <TextView
             android:layout_width="wrap_content"
@@ -313,7 +516,36 @@
             android:textColor="@color/colorAccent"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:id="@+id/raison"
+            android:id="@+id/cni_autorite"
+            android:layout_marginBottom="16dp"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:textColor="@android:color/holo_red_dark"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:text="@string/antecedent"
+            android:layout_marginBottom="16dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:textColor="@android:color/holo_red_dark"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:id="@+id/antecedent"
             android:layout_marginBottom="16dp"/>
     </LinearLayout>
 

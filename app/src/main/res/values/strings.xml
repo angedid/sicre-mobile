@@ -111,20 +111,34 @@
     <string name="vehicule">Hevicule</string>
     <string name="autres">Autres</string>
     <string name="creer">Creer</string>
-    <string name="hint_name">Nom</string>
-    <string name="hint_surname">Prenom</string>
-    <string name="hint_doc_type">Type de Document</string>
-    <string name="hint_doc_number">Numero de Document</string>
-    <string name="hint_raison">Raison</string>
+    <string name="hint_name">Nom: </string>
+    <string name="hint_surname">Prenom: </string>
+    <string name="hint_doc_type">Type de Document: </string>
+    <string name="hint_doc_number">Numero de Document: </string>
+    <string name="hint_raison">Raison: </string>
+    <string name="enregistrement_en_cours">Enregistrement en cours...</string>
+    <string name="an_error_occure">Une erreur est survenue</string>
+    <string name="yes_internet">Connecte</string>
+    <string name="no_internet">Pas de Connexion Internet</string>
+    <string name="verify_connection">Dispositif Deconnecte. Verifier que vous etes connecte et reessayer.</string>
+    <string name="status">Statut: </string>
+    <string name="pays_dorigine">Pays d\'Origine: </string>
+    <string name="profession">Profession: </string>
+    <string name="antecedent">Antecedent: </string>
+    <string name="cni">CNI: </string>
+    <string name="cni_date">Delivre Le: </string>
+    <string name="cni_expire">Expire Le: </string>
+    <string name="cni_autorite">Delivre Par: </string>
 
 
     <string-array name="critere_recherche_individu">
-        <item>Noms et Prenoms</item>
-        <item>CNI</item>
-        <item>Numero Passeport</item>
-        <item>Numero Permis Sejour</item>
-        <item>Numero Carte Sejour</item>
-        <item>Alias</item>
+        <item>nom</item>
+        <item>prenom</item>
+        <item>cni</item>
+        <item>numero passeport</item>
+        <!--<item>Numero Permis Sejour</item>
+        <item>Numero Carte Sejour</item>-->
+        <item>alias</item>
     </string-array>
 
     <string-array name="critere_recherche_vehicule">
