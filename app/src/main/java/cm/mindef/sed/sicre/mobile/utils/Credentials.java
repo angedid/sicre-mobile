@@ -45,6 +45,7 @@ public class Credentials {
         editor.remove(Constant.USERNAME);
         editor.remove(Constant.PASSWORD);
         editor.remove(Constant.STAY_CONNECTED);
+        editor.commit();
     }
 
     public String getUsername() {

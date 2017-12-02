@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "566565679575",
+    "firebase_url": "https://sicre-mobile-f8b6c.firebaseio.com",
+    "project_id": "sicre-mobile-f8b6c",
+    "storage_bucket": "sicre-mobile-f8b6c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:566565679575:android:6c709481a6b15496",
+        "android_client_info": {
+          "package_name": "cm.mindef.sed.sicre.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "566565679575-rd6590f1mtiu7afvhg3afihkp877ca15.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpiwL8c5ANGpVtfePiqmoHy_3m2c5jm8g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,41 +1,41 @@
 package cm.mindef.sed.sicre.mobile;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
-import android.os.AsyncTask;
 import android.os.Build;
-import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Random;
 
+import cm.mindef.sed.sicre.mobile.db.PreuvesDataSources;
 import cm.mindef.sed.sicre.mobile.domain.Perquisition;
+import cm.mindef.sed.sicre.mobile.domain.Preuve;
 import cm.mindef.sed.sicre.mobile.utils.Constant;
 import cm.mindef.sed.sicre.mobile.views.VisualizerView;
+import cm.mindef.sed.sicre.mobile.oservable.event.RessourceCreated;
 
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static cm.mindef.sed.sicre.mobile.R.id.result;
 
 public class RecorderAudioActivity extends AppCompatActivity {
 
@@ -43,7 +43,7 @@ public class RecorderAudioActivity extends AppCompatActivity {
 
     private TextView enregistrement_en_cours;
 
-    private ImageButton record_or_stop, play_record, stop_play_record;
+    private ImageButton record_or_stop, play_record, stop_play_record, back;
     private String AudioSavePathInDevice = null;
     private MediaRecorder mediaRecorder ;
     //private Random random ;
@@ -53,6 +53,7 @@ public class RecorderAudioActivity extends AppCompatActivity {
     private Perquisition perquisition;
 
     private boolean isRecording = false;
+    //private boolean hasReccorden = false;
 
     private boolean isStopped;
 
@@ -65,7 +66,7 @@ public class RecorderAudioActivity extends AppCompatActivity {
         @Override
         public void run() {
             if (isRecording) // if we are already recording
-            {
+             {
                 // get the current amplitude
                 int x = mediaRecorder.getMaxAmplitude();
                 visualizer.addAmplitude(x); // update the VisualizeView
@@ -94,11 +95,21 @@ public class RecorderAudioActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayUseLogoEnabled(true);*/
 
         perquisition = (Perquisition) getIntent().getExtras().get(Constant.PERQUISITION);
+        AudioSavePathInDevice = getNextAudioFileName(perquisition.getId());
 
         record_or_stop =  findViewById(R.id.record_or_stop);
         play_record =  findViewById(R.id.play_record);
         stop_play_record =  findViewById(R.id.stop_play_record);
         visualizer = findViewById(R.id.visualizer);
+        //save = findViewById(R.id.save);
+        back = findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //finish();
+                onBackPressed();
+            }
+        });
         enregistrement_en_cours = findViewById(R.id.enregistrement_en_cours);
 
         //buttonStopPlayingRecording = (Button)findViewById(R.id.button4);
@@ -121,6 +132,7 @@ public class RecorderAudioActivity extends AppCompatActivity {
 
                 if (isRecording == false){
                     isRecording = true;
+                    //hasReccorden = true;
                     enregistrement_en_cours.setVisibility(View.VISIBLE);
                     play_record.setVisibility(View.INVISIBLE);
                     stop_play_record.setVisibility(View.INVISIBLE);
@@ -132,6 +144,9 @@ public class RecorderAudioActivity extends AppCompatActivity {
                             Environment.getExternalStorageDirectory().getAbsolutePath() + "/" +
                                     CreateRandomAudioFileName(5) + "AudioRecording.3gp";*/
                         AudioSavePathInDevice = getNextAudioFileName(perquisition.getId());
+
+
+                        perquisition.getAudioLinks().add(AudioSavePathInDevice);
                         Toast.makeText(RecorderAudioActivity.this, "fileName: " + AudioSavePathInDevice , Toast.LENGTH_SHORT).show();
                         Log.e("fileName" , AudioSavePathInDevice);
                         MediaRecorderReady();
@@ -157,6 +172,7 @@ public class RecorderAudioActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Recording started", Toast.LENGTH_LONG).show();
 
                 }else {
+                    //hasReccorden = true;
                     isRecording = false;
                     enregistrement_en_cours.setVisibility(View.GONE);
                     play_record.setVisibility(View.VISIBLE);
@@ -165,6 +181,17 @@ public class RecorderAudioActivity extends AppCompatActivity {
 
                     try{
                         mediaRecorder.stop();
+                        //PerquisitionActivity.publisher.mySubscribe(new RessourceCreated(AudioSavePathInDevice, "audio", getApplicationContext(), perquisition));
+                        PreuvesDataSources preuvesDataSources = new PreuvesDataSources(getApplicationContext());
+                        preuvesDataSources.open();
+                        Log.e("AudioSavePathInDevice", AudioSavePathInDevice);
+
+                        Preuve preuve = preuvesDataSources.createPreuve(AudioSavePathInDevice, Constant.latitudeNetwork, Constant.longitudeNetwork, "" + perquisition.getId(), "audio");
+
+                        Log.e("PREUVESSSSSSSSSS", preuve.toString());
+
+                        preuvesDataSources.close();
+
                         handler.removeCallbacks(updateVisualizer);
                         visualizer.clear();
                     }catch(RuntimeException stopException){
@@ -176,7 +203,11 @@ public class RecorderAudioActivity extends AppCompatActivity {
                     //buttonStart.setEnabled(true);
                     //buttonStopPlayingRecording.setEnabled(false);
 
+                    //PerquisitionActivity.publisher.mySubscribe(new RessourceCreated(mypath.getAbsolutePath(), "video"));
+
                     Toast.makeText(getApplicationContext(), "Recording Completed", Toast.LENGTH_LONG).show();
+
+
 
                 }
 
@@ -309,10 +340,8 @@ public class RecorderAudioActivity extends AppCompatActivity {
         switch (requestCode) {
             case RequestPermissionCode:
                 if (grantResults.length> 0) {
-                    boolean StoragePermission = grantResults[0] ==
-                            PackageManager.PERMISSION_GRANTED;
-                    boolean RecordPermission = grantResults[1] ==
-                            PackageManager.PERMISSION_GRANTED;
+                    boolean StoragePermission = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    boolean RecordPermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
 
                     if (StoragePermission && RecordPermission) {
                         Toast.makeText(getApplicationContext(), "Permission Granted",
@@ -387,5 +416,15 @@ public class RecorderAudioActivity extends AppCompatActivity {
             //mediaRecorder.release();
             //mediaRecorder = null;
         }
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent returnIntent = new Intent();
+
+        returnIntent.putExtra(Constant.PERQUISITION,perquisition);
+        setResult(Activity.RESULT_OK,returnIntent);
+
+        super.onBackPressed();
     }
 }

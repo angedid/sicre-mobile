@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,7 +101,11 @@ public class ResultSearchActivity extends AppCompatActivity {
             try {
                 JSONArray jsonArray = new JSONArray(result);
                 for (int i = 0; i < jsonArray.length(); i++){
-                    listeDesObjets.add(Objet.getInstance(jsonArray.getJSONObject(i)));
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    Objet objet = Objet.getInstance(jsonObject.getJSONObject("Objet"));
+
+                    if (objet != null)
+                        listeDesObjets.add(objet);
                 }
             } catch (JSONException e) {
 
@@ -122,7 +127,6 @@ public class ResultSearchActivity extends AppCompatActivity {
             }
         }
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

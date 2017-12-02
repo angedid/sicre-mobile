@@ -28,9 +28,11 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -54,6 +56,7 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManagerFactory;
 
+import cm.mindef.sed.sicre.mobile.HomeActivity;
 import cm.mindef.sed.sicre.mobile.PerquisitionActivity;
 import cm.mindef.sed.sicre.mobile.R;
 import cm.mindef.sed.sicre.mobile.adapters.PerquisitionAdapter;
@@ -73,8 +76,8 @@ public class PerquisitionFragment extends Fragment {
     private Button btn_refresh;
 
     //private StringRequest stringRequest;
-    private JsonArrayRequest jsonArrayRequest;
-    private JSONArray jsonArrayResult;
+    private JsonObjectRequest jsonObjectRequest;
+    private JSONObject jsonObject;
     private String url;
 
     private ProgressBar loader;
@@ -153,9 +156,17 @@ public class PerquisitionFragment extends Fragment {
         listViewPerquisition = rootView.findViewById(R.id.liste_perquisition);
         liste_perquisition_title = rootView.findViewById(R.id.liste_perquisition_title);
         liste_perquisition_title.setText(getString(R.string.liste_perquisition_title)+ " de " + Credentials.getInstance(getActivity().getApplicationContext()).getUsername());
-        url ="https://jsonplaceholder.typicode.com/posts/1";
+
+        //url ="https://jsonplaceholder.typicode.com/posts/1";
+        Credentials  credentials = Credentials.getInstance(getActivity().getApplicationContext());
+        String ressource = ((HomeActivity)getActivity()).getUser().getPerquisition().getRead().getUrlResource();
+        Log.e("getUrlResource", ressource);
+        url = ressource  /*+ Constant.URL_LINK + Constant.PERQUISITION_SEARCH */+ "/?" + Constant.USERNAME + "=" + credentials.getUsername() + "&" +
+                Constant.PASSWORD + "=" + credentials.getPassword();
+
         loader = rootView.findViewById(R.id.loader);
         btn_refresh = rootView.findViewById(R.id.btn_refresh);
+
         btn_refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,32 +176,32 @@ public class PerquisitionFragment extends Fragment {
                 }
                 //queue.cancelAll(Constant.PERQUISITION_LIST_REQUEST_TAG);
                 //queue.getCache().clear();
-                String cacheKey = jsonArrayRequest.getCacheKey();
+                String cacheKey = jsonObjectRequest.getCacheKey();
                 Log.e("TAAAAAAAAAG", cacheKey);
                 //Log.e("data to be remove", queue.getCache().);
                 queue.getCache().remove(cacheKey);
 
-                jsonArrayRequest = new JsonArrayRequest(
-                        Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+                jsonObjectRequest = new JsonObjectRequest(
+                        Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONArray response) {
-                        jsonArrayResult = response;
-                        Toast.makeText(getActivity().getApplication(), response.toString(), Toast.LENGTH_LONG).show();
+                    public void onResponse(JSONObject response) {
+                        jsonObject = response;
+                        //Toast.makeText(getActivity().getApplication(), response.toString(), Toast.LENGTH_LONG).show();
                         if (loader.getVisibility() == View.VISIBLE){
                             loader.setVisibility(View.GONE);
                         }
+                        loadPerquisition();
                     }
                 },
                         new Response.ErrorListener(){
                             @Override
                             public void onErrorResponse(VolleyError error){
-                                Toast.makeText(getActivity().getApplication(), "Error..." + error.getCause() + " ", Toast.LENGTH_LONG).show();
-
-                                Log.e("ERRORER", error.getCause() + " | " + error.getStackTrace() + " | " + error.getMessage());
+                                //Toast.makeText(getActivity().getApplication(), "Error..." + error.toString() + " ", Toast.LENGTH_LONG).show();
+                                Log.e("ERRORER 11", error.getCause() + " | " + error.getStackTrace() + " | " + error.getMessage());
                                 if (loader.getVisibility() == View.VISIBLE){
                                     loader.setVisibility(View.GONE);
                                 }
-                                loadPerquisition();
+
                             }
                         }
                 );
@@ -208,10 +219,10 @@ public class PerquisitionFragment extends Fragment {
                             }
                         });*/
 
-                jsonArrayRequest.setTag(Constant.PERQUISITION_LIST_REQUEST_TAG);
+                jsonObjectRequest.setTag(Constant.PERQUISITION_LIST_REQUEST_TAG);
 
 // Add the request to the RequestQueue.
-                queue.add(jsonArrayRequest);
+                queue.add(jsonObjectRequest);
 
             }
         });
@@ -255,42 +266,39 @@ public class PerquisitionFragment extends Fragment {
                     });
             queue.add(stringRequest);*/
 
-        jsonArrayRequest = new JsonArrayRequest(
-                Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+        jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONArray response) {
-                jsonArrayResult = response;
-                Toast.makeText(getActivity().getApplication(), response.toString(), Toast.LENGTH_LONG).show();
+            public void onResponse(JSONObject response) {
+                jsonObject = response;
+                //Toast.makeText(getActivity().getApplication(), response.toString(), Toast.LENGTH_LONG).show();
                 if (loader.getVisibility() == View.VISIBLE){
                     loader.setVisibility(View.GONE);
                 }
+                loadPerquisition();
+
             }
         },
                 new Response.ErrorListener(){
                     @Override
                     public void onErrorResponse(VolleyError error){
-                       // Toast.makeText(getActivity().getApplication(), "Error...", Toast.LENGTH_LONG).show();
-                        Log.e("ERRORER", error.getCause() + " | " + error.getStackTrace() + " | " + error.getMessage());
+                        //Toast.makeText(getActivity().getApplication(), "Error..." + error.toString(), Toast.LENGTH_LONG).show();
+                        Log.e("ERRORER 22", error.getCause() + " | " + error.getStackTrace() + " | " + error.getMessage() + " | " + error.toString());
                         if (loader.getVisibility() == View.VISIBLE){
                             loader.setVisibility(View.GONE);
                         }
 
 
-                        loadPerquisition();
+                        //loadPerquisition();
 
                     }
                 }
         );
 
-        jsonArrayRequest.setTag(Constant.PERQUISITION_LIST_REQUEST_TAG);
+        jsonObjectRequest.setTag(Constant.PERQUISITION_LIST_REQUEST_TAG);
 
 // Add the request to the RequestQueue.
-        queue.add(jsonArrayRequest);
-
-
-        // }else {
-        //loadPerquisitionsList();
-        // }
+        queue.add(jsonObjectRequest);
 
     }
 
@@ -349,10 +357,10 @@ public class PerquisitionFragment extends Fragment {
 
 
     private void loadPerquisition() {
-        String resultat = null;
+      // String resultat = null;
 
         if (getActivity() != null){
-        try {
+         /*try {
 
             InputStream inputStream = getActivity().getAssets().open("perquisitions.json");
             BufferedReader br = null;
@@ -380,30 +388,45 @@ public class PerquisitionFragment extends Fragment {
             resultat = sb.toString();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
         try {
-            JSONArray jsonarr = new JSONArray(resultat);
-            perquisitions = new ArrayList<>();
-            for (int i = 0; i < jsonarr.length(); i++) {
-                perquisitions.add(Perquisition.getInstance(jsonarr.getJSONObject(i)));
-            }
-            if (perquisitions.size() > 0) {
-                perquisitionAdapter = new PerquisitionAdapter(getActivity().getApplicationContext(), perquisitions);
-                listViewPerquisition.setAdapter(perquisitionAdapter);
-                listViewPerquisition.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Perquisition p = perquisitions.get(position);
-                        Intent intent = new Intent(getActivity().getApplicationContext(), PerquisitionActivity.class);
-                        intent.putExtra(Constant.PERQUISITION, p);
 
-                        startActivity(intent);
-                    }
-                });
+
+
+
+            String status = (!jsonObject.isNull(Constant.STATUS))?jsonObject.getString(Constant.STATUS):"";
+
+            if (!status.equals("") && status.equals(Constant.SUCCESS)){
+                perquisitions = new ArrayList<>();
+                JSONArray  jsonarr = jsonObject.getJSONArray(Constant.DATA);
+               // Log.e("data OKKKK", "OKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
+                for (int i = 0; i < jsonarr.length(); i++) {
+                    perquisitions.add(Perquisition.getInstance(jsonarr.getJSONObject(i)));
+                }
+                if (perquisitions.size() > 0) {
+                    perquisitionAdapter = new PerquisitionAdapter(getActivity().getApplicationContext(), perquisitions);
+                    listViewPerquisition.setAdapter(perquisitionAdapter);
+                    listViewPerquisition.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Perquisition p = perquisitions.get(position);
+                            Intent intent = new Intent(getActivity().getApplicationContext(), PerquisitionActivity.class);
+                            intent.putExtra(Constant.RESOURCES, ((HomeActivity)getActivity()).getUser().getPerquisition().getUpdate().getUrlResource());
+                            intent.putExtra(Constant.PERQUISITION, p);
+
+                            startActivity(intent);
+                        }
+                    });
+                }
+            }else {
+                Toast.makeText(getActivity().getApplicationContext(), status, Toast.LENGTH_LONG).show();
             }
+
+
         } catch (JSONException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            Log.e("Error loadPerquisition", e.toString());
         }
     }
     }

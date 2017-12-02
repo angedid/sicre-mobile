@@ -193,8 +193,8 @@ public class IndividuAdapter extends BaseAdapter {
                 new Response.ErrorListener() { // Error listener
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        if(pbg.getVisibility() == View.VISIBLE){
-                            pbg.setVisibility(View.GONE);
+                        if(pbd.getVisibility() == View.VISIBLE){
+                            pbd.setVisibility(View.GONE);
                         }
                         Log.e("ERROR GET USER PHOTO", error.toString());
                         // Do something with error response
@@ -235,8 +235,8 @@ public class IndividuAdapter extends BaseAdapter {
                 new Response.ErrorListener() { // Error listener
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        if(pbg.getVisibility() == View.VISIBLE){
-                            pbg.setVisibility(View.GONE);
+                        if(pbf.getVisibility() == View.VISIBLE){
+                            pbf.setVisibility(View.GONE);
                         }
                         Log.e("ERROR GET USER PHOTO", error.toString());
                         // Do something with error response
@@ -278,8 +278,8 @@ public class IndividuAdapter extends BaseAdapter {
                 new Response.ErrorListener() { // Error listener
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        if(pbg.getVisibility() == View.VISIBLE){
-                            pbg.setVisibility(View.GONE);
+                        if(pbp.getVisibility() == View.VISIBLE){
+                            pbp.setVisibility(View.GONE);
                         }
                         Log.e("ERROR GET USER PHOTO", error.toString());
                         // Do something with error response
@@ -290,10 +290,10 @@ public class IndividuAdapter extends BaseAdapter {
         );
 
         // Add ImageRequest to the RequestQueue
-        requestQueue.add(imageRequestG);
-        requestQueue.add(imageRequestD);
-        requestQueue.add(imageRequestF);
-        requestQueue.add(imageRequestP);
+        //requestQueue.add(imageRequestG);
+        //requestQueue.add(imageRequestD);
+        //requestQueue.add(imageRequestF);
+        //requestQueue.add(imageRequestP);
 
 
 

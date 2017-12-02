@@ -18,7 +18,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,6 +31,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.KeyManagementException;
@@ -35,6 +41,9 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.net.ssl.HostnameVerifier;
@@ -43,9 +52,15 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManagerFactory;
 
+import cm.mindef.sed.sicre.mobile.adapters.CustomSpinnerAdapter;
+import cm.mindef.sed.sicre.mobile.domain.DocType;
+import cm.mindef.sed.sicre.mobile.domain.SearchCriteria;
+import cm.mindef.sed.sicre.mobile.fragments.ChercherFragment;
 import cm.mindef.sed.sicre.mobile.utils.Constant;
 import cm.mindef.sed.sicre.mobile.utils.Credentials;
 import dmax.dialog.SpotsDialog;
+
+import static cm.mindef.sed.sicre.mobile.fragments.ChercherFragment.mapDocType;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -71,12 +86,25 @@ public class SearchActivity extends AppCompatActivity {
 
     private Button btn_search;
 
+
+    private CustomSpinnerAdapter customSpinnerAdapter;
+    private List<DocType> docTypeList;
+    private DocType selectedDoctype;
+
+
+    private SearchCriteria searchCriteria;
+
+    public static String searchData;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
         thisActivity = this;
+
+        searchCriteria = (SearchCriteria) getIntent().getExtras().get(Constant.SEARCH_CRITERIA);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -87,16 +115,31 @@ public class SearchActivity extends AppCompatActivity {
         getSupportActionBar().setLogo(R.mipmap.ic_launcher);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
+
         spinner_critere_recherche_individu = (AppCompatSpinner) findViewById(R.id.spinner_critere_recherche_individu);
+
+        docTypeList = new ArrayList<DocType>();
+        customSpinnerAdapter = new CustomSpinnerAdapter(getApplicationContext(), docTypeList);
+        spinner_critere_recherche_individu.setAdapter(customSpinnerAdapter);
+
         spinner_critere_recherche_vehicule = (AppCompatSpinner) findViewById(R.id.spinner_critere_recherche_vehicule);
+
+        docTypeList = new ArrayList<DocType>();
+        customSpinnerAdapter = new CustomSpinnerAdapter(getApplicationContext(), docTypeList);
+        spinner_critere_recherche_vehicule.setAdapter(customSpinnerAdapter);
+
         spinner_critere_recherche_objet = (AppCompatSpinner) findViewById(R.id.spinner_critere_recherche_objet);
+
+        docTypeList = new ArrayList<DocType>();
+        customSpinnerAdapter = new CustomSpinnerAdapter(getApplicationContext(), docTypeList);
+        spinner_critere_recherche_objet.setAdapter(customSpinnerAdapter);
+
+
 
         spinner_critere_recherche_individu.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedIndex = i;
-                selectedString = spinner_critere_recherche_individu.getSelectedItem().toString();
-                Log.e("selectedString", selectedString);
+                selectedDoctype = docTypeList.get(i);
             }
 
             @Override
@@ -108,9 +151,7 @@ public class SearchActivity extends AppCompatActivity {
         spinner_critere_recherche_vehicule.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedIndex = i;
-                selectedString = spinner_critere_recherche_vehicule.getSelectedItem().toString();
-                Log.e("selectedString", selectedString);
+                selectedDoctype = docTypeList.get(i);
             }
 
             @Override
@@ -122,9 +163,10 @@ public class SearchActivity extends AppCompatActivity {
         spinner_critere_recherche_objet.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedIndex = i;
+                selectedDoctype = docTypeList.get(i);
+                /*selectedIndex = i;
                 selectedString = spinner_critere_recherche_objet.getSelectedItem().toString();
-                Log.e("selectedString", selectedString);
+                Log.e("selectedString", selectedString);*/
             }
 
             @Override
@@ -148,16 +190,43 @@ public class SearchActivity extends AppCompatActivity {
             //Toast.makeText(getApplicationContext(), "enter", Toast.LENGTH_LONG).show();
             hideOther(R.id.spinner_critere_recherche_individu);
             object = "individu";
+            if (mapDocType.get("" + Constant.SEARCH_INDIVIDU) == null){
+                loadDataIntoSpinner(searchCriteria.getIndividuLinkCriteria(), spinner_critere_recherche_individu, "" + Constant.SEARCH_INDIVIDU);
+            }else{
+                docTypeList = mapDocType.get("" + Constant.SEARCH_INDIVIDU);
+                customSpinnerAdapter = new CustomSpinnerAdapter(getApplicationContext(), docTypeList);
+                spinner_critere_recherche_individu.setAdapter(customSpinnerAdapter);
+                selectedDoctype = docTypeList.get(0);
+            }
+
         }
 
         if (keyType == Constant.SEARCH_VEHICULE){
             hideOther(R.id.spinner_critere_recherche_vehicule);
             object = "vehicule";
+            if (mapDocType.get("" + Constant.SEARCH_VEHICULE) == null){
+                loadDataIntoSpinner(Constant.searchCriteria.getVehiculeLinkCriteria(), spinner_critere_recherche_vehicule, "" + Constant.SEARCH_VEHICULE);
+            }else {
+                docTypeList = mapDocType.get("" + Constant.SEARCH_VEHICULE);
+                customSpinnerAdapter = new CustomSpinnerAdapter(getApplicationContext(), docTypeList);
+                spinner_critere_recherche_vehicule.setAdapter(customSpinnerAdapter);
+                selectedDoctype = docTypeList.get(0);
+            }
+
         }
 
         if (keyType == Constant.SEARCH_OBJECT){
             hideOther(R.id.spinner_critere_recherche_objet);
             object = "objet";
+            if (mapDocType.get("" + Constant.SEARCH_OBJECT) == null){
+                loadDataIntoSpinner(Constant.searchCriteria.getObjectLinkCriteria(), spinner_critere_recherche_objet, "" + Constant.SEARCH_OBJECT);
+            }else {
+                docTypeList = mapDocType.get("" + Constant.SEARCH_OBJECT);
+                customSpinnerAdapter = new CustomSpinnerAdapter(getApplicationContext(), docTypeList);
+                spinner_critere_recherche_objet.setAdapter(customSpinnerAdapter);
+                selectedDoctype = docTypeList.get(0);
+            }
+
         }
 
         btn_search = findViewById(R.id.btn_search);
@@ -174,6 +243,150 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    private void loadDataIntoSpinner(String ressource, final AppCompatSpinner spinner, final String key) {
+
+        Credentials credentials = Credentials.getInstance(getApplicationContext());
+        String query = "&" + Constant.USERNAME + "=" + credentials.getUsername() + "&" + Constant.PASSWORD + "=" + credentials.getPassword();
+
+        (new AsyncTask<String, Void, String> (){
+            private AlertDialog dialog;
+            @Override
+            protected String doInBackground(String... params) {
+
+                String url_string = params[0];
+
+                Log.e("urlllllllllllll", url_string);
+                String returnVal = "";
+                // String query = params[1];
+                // Log.e("query", query);
+                //String sourceFileUri = uir_string;
+
+                HttpURLConnection conn = null;
+                DataOutputStream dos = null;
+                //OutputStream out = null;
+                String lineEnd = "\r\n";
+                String twoHyphens = "--";
+                String boundary = "*****";
+                int bytesRead, bytesAvailable, bufferSize;
+                byte[] buffer;
+                int maxBufferSize = 1 * 1024 * 1024;
+
+                try {
+
+                    String upLoadServerUri =url_string; /*"http://idea-cm.club/magasino/enregistrement.php";*/
+
+                    URL url = new URL(upLoadServerUri);
+
+                    // Open a HTTP connection to the URL
+                    conn = (HttpURLConnection) url.openConnection();
+                    conn.setDoInput(true); // Allow Inputs
+
+                    int serverResponseCode = conn.getResponseCode();
+                    String serverResponseMessage = conn.getResponseMessage();
+
+                    InputStream in = conn.getInputStream();
+
+                    if (serverResponseCode >= 200 && serverResponseCode < 300) {
+
+                        Log.e("5050505050","Log.e(\"5050505050\",\"55555555555555555555555555555555555555555555555\");");
+                        BufferedReader br = null;
+                        StringBuilder sb = new StringBuilder();
+                        String line;
+                        try {
+                            br = new BufferedReader(new InputStreamReader(in));
+                            while ((line = br.readLine()) != null) {
+                                sb.append(line);
+                            }
+
+                        } catch (IOException e) {
+                            return Constant.KO;
+                        } finally {
+                            if (br != null) {
+                                try {
+                                    br.close();
+                                } catch (IOException e) {
+                                    return Constant.KO;
+                                }
+                            }
+                        }
+                        in.close();
+                        Log.e("55555555555555555","55555555555555555555555555555555555555555555555");
+                        //os.close();
+                        returnVal = sb.toString();
+
+                    }else {
+                        Log.e(Constant.KO + " 3     " ,Constant.KO + " 3     " );
+                        returnVal =  Constant.KO ;
+                    }
+
+
+                } catch (MalformedURLException e) {
+
+                    // dialog.dismiss();
+                    e.printStackTrace();
+                    return Constant.KO;
+
+                } catch (ProtocolException e) {
+                    e.printStackTrace();
+                    return Constant.KO ;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return Constant.KO;
+                }
+
+                return returnVal;
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                super.onPostExecute(result);
+                if (dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+
+                if (result.equals(Constant.KO)){
+
+                }else{
+                    try {
+                        JSONArray jsonArray = new JSONArray(result);
+                        docTypeList = new ArrayList<DocType>();
+                        if (jsonArray.length() > 0){
+                            for (int i = 0; i<jsonArray.length(); i++){
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                DocType docType = new DocType(jsonObject.getString("id"), jsonObject.getString("libele"));
+                                docTypeList.add(docType);
+                            }
+
+                            selectedDoctype = docTypeList.get(0);
+                            customSpinnerAdapter = new CustomSpinnerAdapter(getApplicationContext(), docTypeList);
+                            spinner.setAdapter(customSpinnerAdapter);
+                            mapDocType.put(key, docTypeList);
+                            Log.e("KEYYYYYYYYYYYY", key);
+                            Log.e("mapDocType", mapDocType.toString());
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                dialog = new SpotsDialog(SearchActivity.thisActivity);
+                dialog.setMessage(getResources().getString(R.string.chargement));
+                dialog.show();
+
+            }
+
+            @Override
+            protected void onProgressUpdate(Void... values) {
+
+            }
+        }).execute(ressource + query);
     }
 
     private void submitForm() {
@@ -231,7 +444,7 @@ public class SearchActivity extends AppCompatActivity {
 
         query += "&" + Constant.OBJECT + "=" + object;
         try {
-            query += "&" + Constant.OPTION + "=" + selectedString;
+            query += "&" + Constant.OPTION + "=" + selectedDoctype.getId();
             query += "&" + Constant.KEY_WORD + "=" + URLEncoder.encode(EditText_mot_cle.getText().toString(), "UTF-8");
         } catch (UnsupportedEncodingException e) {
 
@@ -249,7 +462,6 @@ public class SearchActivity extends AppCompatActivity {
         private AlertDialog dialog;
         //private String username, password;
         public Researcher() {
-
             dialog = new SpotsDialog(SearchActivity.thisActivity);
         }
         @Override
@@ -395,7 +607,7 @@ public class SearchActivity extends AppCompatActivity {
             }
 
 
-            Intent intent = new Intent(getApplicationContext(), ResultSearchActivity.class);
+            Intent intent = new Intent(getApplicationContext(), ResultSearchLiteActivity.class);
             /*String resultat = null;
             try {
 
@@ -429,7 +641,8 @@ public class SearchActivity extends AppCompatActivity {
             }
 
             Log.e("RISULTATOOOOOOOOOOOOO", resultat);*/
-            intent.putExtra(Constant.RESULT, result);
+            //intent.putExtra(Constant.RESULT, result);
+            searchData = result;
             //intent.putExtra(Constant.DOMAINE,  Constant.SEARCH_INDIVIDU);
 
             intent.putExtra(Constant.DOMAINE,  keyType);

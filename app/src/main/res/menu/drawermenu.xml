@@ -7,7 +7,9 @@
 
     <item android:id="@+id/deconnexion"
         android:icon="@drawable/logout_rounde24"
-        android:title="@string/deconnexion"/>
+        android:title="@string/deconnexion"
+
+        />
 
    <!-- <item android:title="Connexion"
         android:id="@+id/se_connecter"

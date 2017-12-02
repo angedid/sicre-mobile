@@ -17,10 +17,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import cm.mindef.sed.sicre.mobile.AutenticationActivity;
+import cm.mindef.sed.sicre.mobile.HomeActivity;
 import cm.mindef.sed.sicre.mobile.R;
 import cm.mindef.sed.sicre.mobile.SearchActivity;
+import cm.mindef.sed.sicre.mobile.domain.DocType;
 import cm.mindef.sed.sicre.mobile.utils.Constant;
 import cm.mindef.sed.sicre.mobile.utils.MySingleton;
 
@@ -39,6 +46,7 @@ public class ChercherFragment extends Fragment {
     private boolean isViewShown = false;
 
 
+    public static Map<String, List<DocType>> mapDocType;
 
     public ChercherFragment() {
 
@@ -57,6 +65,9 @@ public class ChercherFragment extends Fragment {
             fetchData();
         }
 
+        if (mapDocType == null){
+            mapDocType = new HashMap<>();
+        }
 
         return view;
     }
@@ -152,10 +163,13 @@ public class ChercherFragment extends Fragment {
                 break;
         }
         if (type == -1){
-
+            Toast.makeText(getActivity().getApplicationContext(), "Mauvaise action...", Toast.LENGTH_LONG).show();
+            
         }else {
             Intent intent = new Intent(getActivity().getApplicationContext(), SearchActivity.class);
             intent.putExtra(Constant.TYPE, type);
+            //HomeActivity homeActivity = (HomeActivity)getActivity();
+            intent.putExtra(Constant.SEARCH_CRITERIA, HomeActivity.searchCriteria);
             startActivity(intent);
         }
     }

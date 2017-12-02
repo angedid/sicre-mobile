@@ -85,3 +85,29 @@ url: app_root + "m_research/?" + "object=individu&option=alias&keyworc=valeurAli
 
      format de reponse:
 
+
+
+
+
+
+
+
+
+ array(11) {  ["username"]=>  string(5) "admin"  ["password"]=>  string(5) "admin"  ["owner"]=>  string(9) "handnmsnd"
+ ["matricule"]=>  string(10) "x bz bzn n"  ["chassie"]=>  string(9) "z nzjsn x"  ["marque"]=>  string(13) "z bsjxnzksjnn"  ["titre"]=>  string(13) "z bsjxnzksjnn"
+  ["cartegrise"]=>  string(9) "bsnndjdnd"  ["vehicule"]=>  string(4) "true"  ["latitude"]=>  string(16) "4.09340359845189"  ["longitude"]=>  string(17) "9.727169174978608"}
+
+
+var_dump ($_GET);
+if((isset($_GET['username']) && !empty($_GET['username']) && isset($_GET['password']) && !empty($_GET['password'])
+   && isset($_GET['titre']) && !empty($_GET['titre']) && isset($_GET['owner']) && !empty($_GET['owner'])
+   && isset($_GET['description']) && !empty($_GET['description']) &&  isset($_GET['latitude']) && !empty($_GET['latitude'])
+   && isset($_GET['longitude']) && !empty($_GET['longitude']) && isset($_GET['vehicule']) && !empty($_GET['vehicule']))
+   or
+
+   (isset($_GET['username']) && !empty($_GET['username']) && isset($_GET['password']) && !empty($_GET['password'])
+   && isset($_GET['owner']) && !empty($_GET['owner']) && isset($_GET['cartegrise']) && !empty($_GET['cartegrise'])
+   && isset($_GET['matricule']) && !empty($_GET['matricule']) && isset($_GET['chassis']) && !empty($_GET['chassis'])
+   && isset($_GET['marque']) && !empty($_GET['marque']) && isset($_GET['titre']) && !empty($_GET['titre'])
+   &&  isset($_GET['latitude']) && !empty($_GET['latitude']) && isset($_GET['longitude']) && !empty($_GET['longitude'])
+   && isset($_GET['vehicule']) && !empty($_GET['vehicule']))){

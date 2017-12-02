@@ -62,6 +62,20 @@ public class VideoPlayerActivity extends AppCompatActivity implements /* Surface
         }
 
         myVideo = (VideoView) findViewById(R.id.myVideo);
+        myVideo.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+            @Override
+            public boolean onError(MediaPlayer mp, int what, int extra) {
+               runOnUiThread(new Runnable() {
+                   @Override
+                   public void run() {
+                       if (loader.getVisibility() == View.VISIBLE){
+                           loader.setVisibility(View.GONE);
+                       }
+                   }
+               });
+                return false;
+            }
+        });
         vidControl = new MediaController(this);
         myVideo.setVideoURI(vidUri);
         vidControl.setAnchorView(myVideo);
@@ -74,10 +88,14 @@ public class VideoPlayerActivity extends AppCompatActivity implements /* Surface
 
     @Override
     public void onPause(){
-        super.onPause();
+        if (loader.getVisibility() == View.VISIBLE){
+            loader.setVisibility(View.GONE);
+        }
+
         if (myVideo != null){
             myVideo.pause();
         }
+        super.onPause();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -85,6 +103,10 @@ public class VideoPlayerActivity extends AppCompatActivity implements /* Surface
     public void onStop(){
         if (myVideo != null){
             myVideo.stopPlayback();
+        }
+
+        if (loader.getVisibility() == View.VISIBLE){
+            loader.setVisibility(View.GONE);
         }
         super.onStop();
     }

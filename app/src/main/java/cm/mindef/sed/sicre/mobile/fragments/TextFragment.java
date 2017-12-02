@@ -48,11 +48,11 @@ public class TextFragment extends Fragment {
         Bundle bundle = getActivity().getIntent().getExtras();
         perquisition = (Perquisition) bundle.get(Constant.PERQUISITION);
         //Log.e("PERQUISITION", perquisition.toString());
-        affaire.setText(perquisition.getAffaire());
+        affaire.setText(perquisition.getDescription());
 
         text_list_view = rootView.findViewById(R.id.text_list_view);
         //Log.e("SIZEEEEEEE", "" + perquisition.getTextLinks().size());
-        perquisitionTextAdapter = new PerquisitionTextAdapter(getActivity().getApplicationContext(), perquisition.getTextLinks());
+        perquisitionTextAdapter = new PerquisitionTextAdapter(getActivity().getApplicationContext(), perquisition.getPreuves());
         text_list_view.setAdapter(perquisitionTextAdapter);
 
         add_preuve_text = rootView.findViewById(R.id.add_preuve_text);
@@ -84,7 +84,7 @@ public class TextFragment extends Fragment {
         if (requestCode == Constant.REQUEST_CODE_FOR_ADD_PERQUISITION) {
             if (resultCode == RESULT_OK) {
                 perquisition = (Perquisition) data.getExtras().get(Constant.PERQUISITION);
-                perquisitionTextAdapter = new PerquisitionTextAdapter(getActivity().getApplicationContext(), perquisition.getTextLinks());
+                perquisitionTextAdapter = new PerquisitionTextAdapter(getActivity().getApplicationContext(), perquisition.getPreuves());
                 text_list_view.setAdapter(perquisitionTextAdapter);
             }
         }

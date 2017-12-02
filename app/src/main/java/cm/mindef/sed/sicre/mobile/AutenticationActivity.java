@@ -29,6 +29,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
+import com.google.firebase.messaging.RemoteMessage;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -54,6 +56,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManagerFactory;
 
+import cm.mindef.sed.sicre.mobile.domain.SearchCriteria;
 import cm.mindef.sed.sicre.mobile.domain.User;
 import cm.mindef.sed.sicre.mobile.utils.Constant;
 
@@ -152,6 +155,14 @@ public class AutenticationActivity extends AppCompatActivity {
                 submitForm();
             }
         });
+        //intent.putExtra(Constant.USER, (User)bundle.get(Constant.USER));
+        User user = (getIntent().getExtras() != null)?((User) getIntent().getExtras().get(Constant.USER)):null;
+        if (user != null){
+            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+            intent.putExtra(Constant.REMOTE_MESSAGE, (RemoteMessage) getIntent().getExtras().get(Constant.REMOTE_MESSAGE));
+            intent.putExtra(Constant.USER, user);
+            startActivity(intent);
+        }
     }
 
     public void togleStayConnected(View view){
@@ -412,7 +423,19 @@ public class AutenticationActivity extends AppCompatActivity {
 
                 if (user == null){
                     error_message.setVisibility(View.VISIBLE);
-                    error_message.setText(getString(R.string.an_error_occure) + " voiala" );
+                    error_message.setText(getString(R.string.an_error_occure) + " voila" );
+                    return;
+                }
+
+
+                JSONObject criteriaJsonObj = jsonObject.getJSONObject(Constant.SEARCH_CRITERIA);
+                SearchCriteria searchCriteria = SearchCriteria.getInstance(criteriaJsonObj);
+
+                Constant.searchCriteria = searchCriteria;
+
+                if (searchCriteria == null){
+                    error_message.setVisibility(View.VISIBLE);
+                    error_message.setText(getString(R.string.an_error_occure) + " voila" );
                     return;
                 }
 
@@ -422,6 +445,7 @@ public class AutenticationActivity extends AppCompatActivity {
                 intent.putExtra(Constant.USERNAME, this.username);
                 intent.putExtra(Constant.PASSWORD, this.password);
                 intent.putExtra(Constant.USER, user);
+                intent.putExtra(Constant.SEARCH_CRITERIA, searchCriteria);
 
                 SharedPreferences.Editor editor = getSharedPreferences(Constant.PreferenceCredential, MODE_PRIVATE).edit();
                 editor.putString(Constant.USERNAME, this.username);
@@ -430,6 +454,13 @@ public class AutenticationActivity extends AppCompatActivity {
 
                 if (checkbox_stay_connected.isChecked())
                     Credentials.saveCredential(getApplicationContext(), this.username, this.password, this.stayConnected);
+
+                if (getIntent().getExtras()!= null && getIntent().getExtras().get(Constant.REMOTE_MESSAGE) != null){
+                    intent.putExtra(Constant.REMOTE_MESSAGE, (RemoteMessage) getIntent().getExtras().get(Constant.REMOTE_MESSAGE));
+                    User user1 = (User) getIntent().getExtras().get(Constant.USER);
+                    intent.putExtra(Constant.USER, user1);
+                    Log.e("NKALLA111", "Nkalla1111111111111111111111111");
+                }
 
                 startActivity(intent);
                 inputPassword.setText("");

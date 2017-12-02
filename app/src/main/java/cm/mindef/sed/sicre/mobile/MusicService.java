@@ -82,6 +82,12 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     }
 
+    public void finisPlay(){
+        player.stop();
+        player.reset();
+       // player.release();
+    }
+
     public void setShuffle(){
         if(shuffle) shuffle=false;
         else shuffle=true;
@@ -91,12 +97,13 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public void initMusicPlayer(){
         //set player properties
         player.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
-         audioAttributes =  new AudioAttributes.Builder()
+        audioAttributes =  new AudioAttributes.Builder()
                 .setUsage(AudioAttributes.USAGE_MEDIA)
                 .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                 .build();
 
         player.setAudioAttributes(audioAttributes);
+
 
         player.setOnPreparedListener(this);
         player.setOnCompletionListener(this);
@@ -111,15 +118,19 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     public void playSong(){
         //play a song
+        Log.e("songPosn", songs.size() + "           1         " + songPosn);
         player.reset();
 
+        Log.e("songPosn", songs.size() + "           2    " + songPosn);
         String url = songs.get(songPosn);
+        Log.e("songPosn", "           " + songPosn);
         String vet [] = url.split("\\/");
         songTitle = vet[vet.length - 1];
 
         Uri trackUri = Uri.parse(url);
 
         try{
+            Log.e("trackUri", trackUri.toString());
             player.setDataSource(getApplicationContext(), trackUri);
         }
         catch(Exception e){
@@ -157,10 +168,10 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-        if(player.getCurrentPosition() > 0){
+        //if(player.getCurrentPosition() > 0){
             mp.reset();
             playNext();
-        }
+        //}
     }
 
     @Override
@@ -176,6 +187,8 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     @Override
     public void onPrepared(MediaPlayer mp) {
         //start playback
+
+        Log.e("starting ", "Starting playing songggggggggggggggggggggggggggggggggg");
         mp.start();
 
         Intent i = new Intent("android.intent.action.MAIN").putExtra("some_msg", "I will be sent!");

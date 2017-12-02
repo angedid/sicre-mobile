@@ -56,12 +56,18 @@ import javax.net.ssl.TrustManagerFactory;
 
 import cm.mindef.sed.sicre.mobile.AddAffaireActivity;
 import cm.mindef.sed.sicre.mobile.AffaireActivity;
+import cm.mindef.sed.sicre.mobile.EnregistrerAffaireActivity;
+import cm.mindef.sed.sicre.mobile.EnregistrerIndividuActivity;
+import cm.mindef.sed.sicre.mobile.EnregistrerObjetActivity;
+import cm.mindef.sed.sicre.mobile.EnregistrerVehiculeActivity;
+import cm.mindef.sed.sicre.mobile.HomeActivity;
 import cm.mindef.sed.sicre.mobile.PerquisitionActivity;
 import cm.mindef.sed.sicre.mobile.R;
 import cm.mindef.sed.sicre.mobile.adapters.AffaireAdapter;
 import cm.mindef.sed.sicre.mobile.adapters.PerquisitionAdapter;
 import cm.mindef.sed.sicre.mobile.domain.Affaire;
 import cm.mindef.sed.sicre.mobile.domain.Perquisition;
+import cm.mindef.sed.sicre.mobile.domain.User;
 import cm.mindef.sed.sicre.mobile.utils.Constant;
 import cm.mindef.sed.sicre.mobile.utils.Credentials;
 import cm.mindef.sed.sicre.mobile.utils.MySingleton;
@@ -77,16 +83,19 @@ public class EnregistrementFragment extends Fragment {
     private Button btn_add_affaire;
 
     //private StringRequest stringRequest;
-    private JsonArrayRequest jsonArrayRequest;
+    /*private JsonArrayRequest jsonArrayRequest;
     private JSONArray jsonArrayResult;
-    private String url;
+    private String url;*/
 
     private ProgressBar loader;
 
-    private List<Affaire> affaires;
+    /*private List<Affaire> affaires;
     private AffaireAdapter affaireAdapter;
     private ListView listViewAffaire;
-    private TextView liste_affaire_title;
+    private TextView liste_affaire_title;*/
+
+    private  Button btn_enregistrer_individu, btn_enregistrer_vehicule, btn_enregistrer_objet;
+            //btn_enregistrer_affaire;
 
     private boolean isViewShown = false;
 
@@ -102,11 +111,11 @@ public class EnregistrementFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_enregistrement, container, false);
+        View view = inflater.inflate(R.layout.fragment_enregistrement1, container, false);
         rootView = view;
 
         if (!isViewShown) {
-            queue = MySingleton.getRequestQueue(this.getActivity().getApplicationContext());
+            //queue = MySingleton.getRequestQueue(this.getActivity().getApplicationContext());
             fetchData();
         }
 
@@ -146,7 +155,7 @@ public class EnregistrementFragment extends Fragment {
             networState_logger.setVisibility(View.VISIBLE);
         }
 
-        listViewAffaire = rootView.findViewById(R.id.liste_affaire);
+        /*listViewAffaire = rootView.findViewById(R.id.liste_affaire);
         liste_affaire_title = rootView.findViewById(R.id.liste_affaire_title);
         liste_affaire_title.setText(getString(R.string.liste_affaire_title)+ " de " + Credentials.getInstance(getActivity().getApplicationContext()).getUsername());
         url ="https://jsonplaceholder.typicode.com/posts/1";
@@ -161,7 +170,7 @@ public class EnregistrementFragment extends Fragment {
 
 
             }
-        });
+        });*/
 
         /*SSLSocketFactory sslSocketFactory = getMySSLSocketFactory();
 
@@ -184,7 +193,7 @@ public class EnregistrementFragment extends Fragment {
         //Set<Perquisition> perquisitions = (Set<Perquisition>) Constant.data.get(Constant.PERQUISITION_LIST);
         //if (perquisitions == null){
 
-        Toast.makeText(getActivity().getApplicationContext(), "Entrer!", Toast.LENGTH_LONG).show();
+       // Toast.makeText(getActivity().getApplicationContext(), "Entrer!", Toast.LENGTH_LONG).show();
 
         //String url ="http://www.example.com";
 
@@ -205,7 +214,7 @@ public class EnregistrementFragment extends Fragment {
             queue.add(stringRequest);*/
 
 
-        if (loader.getVisibility() == View.GONE){
+       /* if (loader.getVisibility() == View.GONE){
             loader.setVisibility(View.VISIBLE);
         }
 
@@ -239,7 +248,7 @@ public class EnregistrementFragment extends Fragment {
         jsonArrayRequest.setTag(Constant.AFFAIRE_LIST_REQUEST_TAG);
 
 // Add the request to the RequestQueue.
-        queue.add(jsonArrayRequest);
+        queue.add(jsonArrayRequest);*/
 
 
         // }else {
@@ -257,10 +266,6 @@ public class EnregistrementFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -282,7 +287,58 @@ public class EnregistrementFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        btn_enregistrer_individu = (Button) rootView.findViewById(R.id.btn_enregistrer_individu);
+        btn_enregistrer_vehicule = (Button) rootView.findViewById(R.id.btn_enregistrer_vehicule);
+        btn_enregistrer_objet = (Button) rootView.findViewById(R.id.btn_enregistrer_objet);
+        //btn_enregistrer_affaire = (Button) rootView.findViewById(R.id.btn_enregistrer_affaire);
 
+        btn_enregistrer_individu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity().getApplicationContext(), EnregistrerIndividuActivity.class);
+                HomeActivity ha = (HomeActivity) getActivity();
+                User user = ha.getUser();
+                intent.putExtra(Constant.USER, user);
+                startActivity(intent);
+            }
+        });
+
+
+        btn_enregistrer_vehicule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity().getApplicationContext(), EnregistrerVehiculeActivity.class);
+                HomeActivity ha = (HomeActivity) getActivity();
+                User user = ha.getUser();
+                intent.putExtra(Constant.USER, user);
+                startActivity(intent);
+            }
+        });
+
+        btn_enregistrer_objet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity().getApplicationContext(), EnregistrerObjetActivity.class);
+                HomeActivity ha = (HomeActivity) getActivity();
+                User user = ha.getUser();
+                intent.putExtra(Constant.USER, user);
+                startActivity(intent);
+            }
+        });
+
+        /*btn_enregistrer_affaire.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity().getApplicationContext(), EnregistrerAffaireActivity.class);
+                startActivity(intent);
+            }
+        });*/
+    }
+
+/*
 
     private void loadAffaire() {
         String resultat = null;
@@ -346,7 +402,7 @@ public class EnregistrementFragment extends Fragment {
             e.printStackTrace();
         }
     }
-
+*/
 
     /**
      * Pour SSl Certificate pinning

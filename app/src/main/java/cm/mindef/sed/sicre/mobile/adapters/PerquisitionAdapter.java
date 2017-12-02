@@ -50,11 +50,14 @@ public class PerquisitionAdapter extends BaseAdapter{
 
         Perquisition perquisitionCourente = perquisitions.get(position);
 
-        TextView affaire = convertView.findViewById(R.id.affaire);
-        affaire.setText(perquisitionCourente.getAffaire());
+        /*TextView domaine = convertView.findViewById(R.id.domaine);
+        domaine.setText(perquisitionCourente.getDomaine());*/
 
         TextView description = convertView.findViewById(R.id.description);
         description.setText(perquisitionCourente.getDescription());
+
+        TextView description_lieu = convertView.findViewById(R.id.description_lieu);
+        description_lieu.setText(perquisitionCourente.getDescriptionLieu());
 
         return convertView;
     }

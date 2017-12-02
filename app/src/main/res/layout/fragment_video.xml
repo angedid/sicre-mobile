@@ -2,8 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cm.mindef.sed.sicre.mobile.fragments.VideoFragment"
-    android:paddingBottom="75dp">
+    tools:context="cm.mindef.sed.sicre.mobile.fragments.VideoFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +13,7 @@
             android:layout_width="0dp"
             android:layout_weight="90"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorPrimaryDark"
             android:gravity="center"
             android:layout_gravity="center"
             android:id="@+id/affaire"
@@ -22,7 +21,7 @@
             android:text="@string/liste_perquisition_title"
             android:textStyle="bold"
             android:layout_alignParentLeft="true" />
-        <Button android:id="@+id/add_preuve_video"
+        <!--<Button android:id="@+id/add_preuve_video"
             android:layout_marginTop="3dp"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
@@ -34,13 +33,21 @@
             android:paddingTop="0dp"
             android:paddingLeft="3dp"
             android:paddingRight="3dp"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:background="@drawable/background_button"
             android:textColor="@android:color/white"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textAllCaps="false"/>-->
 
     </LinearLayout>
 
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swipeContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/header">
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,6 +56,42 @@
         android:divider="@android:color/white"
         android:dividerHeight="3dp"
         />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_preuve_video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:src="@drawable/icons8_plus_24"
+        android:layout_marginTop="21dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="100dp"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:src="@drawable/icons8_sent_24"
+        android:layout_marginTop="21dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        android:visibility="gone"
+        android:layout_marginBottom="100dp"/>
+
+    <ProgressBar
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/progress_save"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="10dp"
+        android:background="#FFFFFF"
+        android:visibility="visible"
+        />
 
 </RelativeLayout>

@@ -3,120 +3,184 @@ package cm.mindef.sed.sicre.mobile.domain;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * Created by root on 14/10/17.
  */
 
-public class Objet {
+
+public class Objet implements Serializable{
 
     private String id;
-    private String signeParticulier;
-    private String titre;
-    private String sujet;
+    private String libele;
     private String description;
-    private String marque;
-    private String fabricant;
-    private String dateDeCreation;
-    private String raisonDescription;
-    private String raisonId;
-    private String photoLink;
-
+    private String status;
+    private String wanted_num;
+    private String wanted_desc;
+    private String carte_grise;
     private String matricule;
-    private String numeroDeChassie;
+    private String puissance;
+    private String kilometrage;
+    private String annee_circ;
+    private String num_assurance;
+    private String num_enregistrement;
+    private String photo;
 
-    private Objet(String id, String signeParticulier, String titre, String sujet, String description,
-                 String marque, String fabricant, String dateDeCreation, String raisonDescription,
-                 String raisonId, String photoLink, String matricule, String numeroDeChassie) {
+    public Objet(String id, String libele, String description, String status, String wanted_num,
+                 String wanted_desc, String carte_grise, String matricule, String puissance, String kilometrage,
+                 String annee_circ, String num_assurance, String num_enregistrement, String photo) {
         this.id = id;
-        this.signeParticulier = signeParticulier;
-        this.titre = titre;
-        this.sujet = sujet;
+        this.libele = libele;
         this.description = description;
-        this.marque = marque;
-        this.fabricant = fabricant;
-        this.dateDeCreation = dateDeCreation;
-        this.raisonDescription = raisonDescription;
-        this.raisonId = raisonId;
-        this.photoLink = photoLink;
+        this.status = status;
+        this.wanted_num = wanted_num;
+        this.wanted_desc = wanted_desc;
+        this.carte_grise = carte_grise;
         this.matricule = matricule;
-        this.numeroDeChassie = numeroDeChassie;
+        this.puissance = puissance;
+        this.kilometrage = kilometrage;
+        this.annee_circ = annee_circ;
+        this.num_assurance = num_assurance;
+        this.num_enregistrement = num_enregistrement;
+        this.photo = photo;
     }
 
     public static Objet getInstance(JSONObject jsonObject){
         try {
-            String id = jsonObject.getString("id");
-            String signe_particulier = jsonObject.getString("signe_particulier");
-            String titre = jsonObject.getString("titre");
-            String sujet = jsonObject.getString("sujet");
-            String description = jsonObject.getString("description");
-            String marque = jsonObject.getString("marque");
-            String fabricant = jsonObject.getString("fabricant");
-            String dateDeCreation = jsonObject.getString("date_creation");
-
-            JSONObject raison = jsonObject.getJSONObject("raison");
-            String raisonDescription = raison.getString("description");
-            String raisonId = raison.getString("affaire");
-            String photoLink = jsonObject.getString("photo");
-
-            String matricule = jsonObject.getString("matricule");
-            String numero_de_chassie = jsonObject.getString("numero_de_chassie");
+            String id = (!jsonObject.isNull("id"))?jsonObject.getString("id"):"";
+            String libele = (!jsonObject.isNull("libele"))?jsonObject.getString("libele"):"";
+            String description = (!jsonObject.isNull("description"))?jsonObject.getString("description"):"";
+            String status = (!jsonObject.isNull("status"))?jsonObject.getString("status"):"";
+            String wanted_num = (!jsonObject.isNull("wanted_num"))?jsonObject.getString("wanted_num"):"";
+            String wanted_desc = (!jsonObject.isNull("wanted_desc"))?jsonObject.getString("wanted_desc"):"";
+            String carte_grise = (!jsonObject.isNull("carte_grise"))?jsonObject.getString("carte_grise"):"";
+            String matricule = (!jsonObject.isNull("matricule"))?jsonObject.getString("matricule"):"";
+            String puissance = (!jsonObject.isNull("puissance"))?jsonObject.getString("puissance"):"";
+            String kilometrage = (!jsonObject.isNull("kilometrage"))?jsonObject.getString("kilometrage"):"";
+            String annee_circ = (!jsonObject.isNull("annee_circ"))?jsonObject.getString("annee_circ"):"";
+            String num_assurance = (!jsonObject.isNull("num_assurance"))?jsonObject.getString("num_assurance"):"";
+            String num_enregistrement = (!jsonObject.isNull("num_enregistrement"))?jsonObject.getString("num_enregistrement"):"";
+            String photo = (!jsonObject.isNull("photo"))?jsonObject.getString("photo"):"";
 
 
-            return new Objet(id, signe_particulier, titre, sujet, description, marque, fabricant, dateDeCreation, raisonDescription, raisonId, photoLink, matricule, numero_de_chassie);
+
+            return new Objet(id, libele, description, status, wanted_num, wanted_desc, carte_grise,
+                    matricule, puissance, kilometrage, annee_circ, num_assurance, num_enregistrement, photo);
         } catch (JSONException e) {
             return null;
         }
     }
 
-    public final String getId() {
+    public String getId() {
         return id;
     }
 
-    public final String getSigneParticulier() {
-        return signeParticulier;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public final String getTitre() {
-        return titre;
+    public String getLibele() {
+        return libele;
     }
 
-    public final String getSujet() {
-        return sujet;
+    public void setLibele(String libele) {
+        this.libele = libele;
     }
 
-    public final String getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    public final String getMarque() {
-        return marque;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public final String getFabricant() {
-        return fabricant;
+    public String getStatus() {
+        return status;
     }
 
-    public final String getDateDeCreation() {
-        return dateDeCreation;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public final String getRaisonDescription() {
-        return raisonDescription;
+    public String getWanted_num() {
+        return wanted_num;
     }
 
-    public final String getRaisonId() {
-        return raisonId;
+    public void setWanted_num(String wanted_num) {
+        this.wanted_num = wanted_num;
     }
 
-    public final String getPhotoLink() {
-        return photoLink;
+    public String getWanted_desc() {
+        return wanted_desc;
     }
 
-    public final String getMatricule() {
+    public void setWanted_desc(String wanted_desc) {
+        this.wanted_desc = wanted_desc;
+    }
+
+    public String getCarte_grise() {
+        return carte_grise;
+    }
+
+    public void setCarte_grise(String carte_grise) {
+        this.carte_grise = carte_grise;
+    }
+
+    public String getMatricule() {
         return matricule;
     }
 
-    public final String getNumeroDeChassie() {
-        return numeroDeChassie;
+    public void setMatricule(String matricule) {
+        this.matricule = matricule;
+    }
+
+    public String getPuissance() {
+        return puissance;
+    }
+
+    public void setPuissance(String puissance) {
+        this.puissance = puissance;
+    }
+
+    public String getKilometrage() {
+        return kilometrage;
+    }
+
+    public void setKilometrage(String kilometrage) {
+        this.kilometrage = kilometrage;
+    }
+
+    public String getAnnee_circ() {
+        return annee_circ;
+    }
+
+    public void setAnnee_circ(String annee_circ) {
+        this.annee_circ = annee_circ;
+    }
+
+    public String getNum_assurance() {
+        return num_assurance;
+    }
+
+    public void setNum_assurance(String num_assurance) {
+        this.num_assurance = num_assurance;
+    }
+
+    public String getNum_enregistrement() {
+        return num_enregistrement;
+    }
+
+    public void setNum_enregistrement(String num_enregistrement) {
+        this.num_enregistrement = num_enregistrement;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

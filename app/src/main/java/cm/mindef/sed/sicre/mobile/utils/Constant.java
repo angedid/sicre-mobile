@@ -1,11 +1,14 @@
 package cm.mindef.sed.sicre.mobile.utils;
 
 import android.content.Context;
+import android.location.Criteria;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import cm.mindef.sed.sicre.mobile.domain.SearchCriteria;
 
 /**
  * Created by root on 11/10/17.
@@ -83,6 +86,31 @@ public class Constant {
     public static final String FACE = "face";
     public static final String PORTRAIT = "portrait";
     public static final String RAS = "Rien a Signaler";
+    public static final String EXECUTED = "Executed";
+    public static final String PERQUISITION_SAVE = "m_perquisition_save/";
+    public static final String PERQUISITION_SEARCH = "m_perquisition_search/";
+    public static final String ENREGISTREMENT_AFFAIRE = "m_enregistrement_affaire/";
+
+    public static final String DATA = "data";
+    public static final String SUCCESS = "success";
+    public static final String TOKEN = "token";
+    public static final String LATITUDE = "latitude";
+    public static final String LONGITUDE = "longitude";
+    public static final String ENREGISTREMENT_INDIVIDU = "m_enregistrement_individu/";
+    public static final String ENREGISTREMENT_OBJET = "m_enregistrement_objet/";
+    public static final String ENREGISTREMENT_VEHICULE = "m_enregistrement_objet/";
+    public static final String GET_ALERT_LIST = "m_alert/";
+    public static final String NEW_ALERT = "m_alert/";
+    public static final String SIGNALER_LINK = "m_signaler/";
+    public static final String TYPE_DOCUMENT_LINK = "m_type_document/";
+    public static final String SAVE_TOKEN = "m_alert/";
+    public static final String SEARCH_CRITERIA = "search_criteria";
+    public static final String RESOURCES = "ressource";
+    public static final String VEHICULE = "vehicule";
+    public static final String ENREGISTREMENT_VEHICULE_LOCAL = "enregistrement_vehicule_local";
+    public static final String ENREGISTREMENT_OBJET_LOCAL = "enregistrement_objet_local";
+    public static final String REMOTE_MESSAGE = "remote_message";
+    public static  int NOTIFICATION_ID = 1;
 
     public static Map<String, Object> data = new HashMap<String, Object>();
     public static final String PERQUISITION_IMAGE_ROOT = "perquisitions_images_";
@@ -92,6 +120,10 @@ public class Constant {
     public static final String CONNECTED = "CONNECTED";
 
     public static final int RequestPermissionCode = 1;
+    public static String firebaseToken;
+    public static double longitudeNetwork = 0;
+    public static double latitudeNetwork = 0;
+    public static final String ENREGISTREMENT_INDIVIDU_LOCAL="ENREGISTREMENT_INDIVIDU_LOCAL";
 
     //public static String AUCUN_INDIVIDU_TROUVE;
 
@@ -116,6 +148,9 @@ public class Constant {
         boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
         return isConnected;
     }
+
+
+    public static SearchCriteria searchCriteria;
 
 
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SICRE MOBILE</string>
+    <string name="app_name">SICRE</string>
 
     <string name="chargement">Veuillez Patienter SVP</string>
 
@@ -93,7 +93,7 @@
     <string name="marque">Marque: </string>
     <string name="signal">Signaler</string>
     <string name="refresh">Rafraichir</string>
-    <string name="liste_perquisition_title">Liste des Perquisition</string>
+    <string name="liste_perquisition_title">Liste des Perquisitions</string>
     <string name="text">Text</string>
     <string name="image">Image</string>
     <string name="son">Sound</string>
@@ -129,6 +129,42 @@
     <string name="cni_date">Delivre Le: </string>
     <string name="cni_expire">Expire Le: </string>
     <string name="cni_autorite">Delivre Par: </string>
+    <string name="save">Sauvegarder</string>
+    <string name="description_lieu">Description des lieux</string>
+    <string name="successful_saved">Sauvegarder Avec Succes</string>
+    <string name="btn_enregistrer_individu">Enregistrer Individu</string>
+    <string name="btn_enregistrer_vehicule">Enregistrer Vehicule</string>
+    <string name="btn_enregistrer_objet">Enregistrer un Objet</string>
+    <string name="btn_enregistrer_affaire">Enregistrer Affaire</string>
+    <string name="hint_proprietaire">Proprietaire</string>
+    <string name="hint_name_chauffeur">Nom et Prenom Chauffeur</string>
+    <string name="hint_immatriculation">Num. Matricule</string>
+    <string name="hint_chassie">Num. Chassie</string>
+    <string name="hint_marque">Marque</string>
+    <string name="hint_titre">Titre</string>
+    <string name="hint_couleur">Couleur</string>
+    <string name="hint_matiere">Matiere</string>
+    <string name="hint_description">Description</string>
+    <string name="photo">Photo</string>
+    <string name="you_mustgrant_permission">Vous devez donner des permisssion</string>
+    <string name="default_notification_channel_id">aaaaaaaaaa</string>
+    <string name="libele">Libele: </string>
+    <string name="num_avis">Num. Avis: </string>
+    <string name="carte_grise">Carte Grise: </string>
+    <string name="puissance">Puissance: </string>
+    <string name="kilometrage">Kilometrage: </string>
+    <string name="num_assurance">Num. Assurance: </string>
+    <string name="alerter">Alerter</string>
+    <string name="liste_alert_title">Liste des Alertes</string>
+    <string name="hint_message">Message</string>
+    <string name="successful_signal">Signaler Avec Succes</string>
+    <string name="failed">Echec</string>
+    <string name="hint_carte_grise">Carte Grise</string>
+    <string name="err_name">Nom invalide</string>
+    <string name="err_surname">Prenom invalide</string>
+    <string name="err_num_doc">Numero Invalide</string>
+    <string name="err_num_raison">Raison Invalide</string>
+    <string name="not_autorized">Vous n\'etes pas autorises</string>
 
 
     <string-array name="critere_recherche_individu">

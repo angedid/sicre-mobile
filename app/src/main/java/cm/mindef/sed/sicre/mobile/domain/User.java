@@ -21,9 +21,10 @@ public class User implements Serializable {
     private String langue;
     private String unite;
 
-    private Access perquisition, individu, alert;
+    private Access perquisition, individu, vehicule, objet, alert;
 
-    public User(String name, String username, String email, String photoUrl, String langue, String unite, Access perquisition, Access individu, Access alert) {
+    public User(String name, String username, String email, String photoUrl, String langue, String unite,
+                Access perquisition, Access individu, Access vehicule, Access objet, Access alert) {
         this.name = name;
         this.username = username;
         this.email = email;
@@ -32,9 +33,10 @@ public class User implements Serializable {
         this.unite = unite;
         this.perquisition = perquisition;
         this.individu = individu;
+        this.vehicule = vehicule;
+        this.objet = objet;
         this.alert = alert;
     }
-
 
     public static User getInstance(JSONObject jsonObject){
         try {
@@ -49,7 +51,10 @@ public class User implements Serializable {
 
             JSONObject perquisitionJsonObj = access.getJSONObject("perquisition");
             JSONObject individuJsonObj = access.getJSONObject("individu");
+            JSONObject vehiculeJsonObj = access.getJSONObject("vehicule");
+            JSONObject objetJsonObj = access.getJSONObject("objet");
             JSONObject alertJsonObj = access.getJSONObject("alert");
+
 
             JSONObject perquisitionCreate = perquisitionJsonObj.getJSONObject("create");
             JSONObject perquisitionRead = perquisitionJsonObj.getJSONObject("access");
@@ -70,7 +75,7 @@ public class User implements Serializable {
             JSONObject individuUpdate = individuJsonObj.getJSONObject("update");
             JSONObject individuDelete = individuJsonObj.getJSONObject("delete");
 
-            Access controle = new Access(
+            Access individu = new Access(
                     new Can(individuCreate.getString("can").equals("Y"), individuCreate.getString("ressource")),
                     new Can(individuRead.getString("can").equals("Y"), individuRead.getString("ressource")),
                     new Can(individuUpdate.getString("can").equals("Y"), individuUpdate.getString("ressource")),
@@ -78,6 +83,32 @@ public class User implements Serializable {
 
             );
 
+
+            JSONObject vehiculeCreate = vehiculeJsonObj.getJSONObject("create");
+            JSONObject vehiculeRead = vehiculeJsonObj.getJSONObject("access");
+            JSONObject vehiculeUpdate = vehiculeJsonObj.getJSONObject("update");
+            JSONObject vehiculeDelete = vehiculeJsonObj.getJSONObject("delete");
+
+            Access vehicule = new Access(
+                    new Can(vehiculeCreate.getString("can").equals("Y"), vehiculeCreate.getString("ressource")),
+                    new Can(vehiculeRead.getString("can").equals("Y"), vehiculeRead.getString("ressource")),
+                    new Can(vehiculeUpdate.getString("can").equals("Y"), vehiculeUpdate.getString("ressource")),
+                    new Can(vehiculeDelete.getString("can").equals("Y"), vehiculeDelete.getString("ressource"))
+
+            );
+
+            JSONObject objetCreate = objetJsonObj.getJSONObject("create");
+            JSONObject objetRead = objetJsonObj.getJSONObject("access");
+            JSONObject objetUpdate = objetJsonObj.getJSONObject("update");
+            JSONObject objetDelete = objetJsonObj.getJSONObject("delete");
+
+            Access objet = new Access(
+                    new Can(objetCreate.getString("can").equals("Y"), objetCreate.getString("ressource")),
+                    new Can(objetRead.getString("can").equals("Y"), objetRead.getString("ressource")),
+                    new Can(objetUpdate.getString("can").equals("Y"), objetUpdate.getString("ressource")),
+                    new Can(objetDelete.getString("can").equals("Y"), objetDelete.getString("ressource"))
+
+            );
 
 
             JSONObject alertCreate = alertJsonObj.getJSONObject("create");
@@ -93,7 +124,7 @@ public class User implements Serializable {
 
             );
 
-            return new User(name, username, email, photo, langue, unite, perquisition,controle, alert);
+            return new User(name, username, email, photo, langue, unite, perquisition,individu, vehicule, objet, alert);
 
 
         } catch (JSONException e) {
@@ -101,9 +132,7 @@ public class User implements Serializable {
             return null;
         }
 
-
     }
-
 
     public String getName() {
         return name;
@@ -169,11 +198,45 @@ public class User implements Serializable {
         this.individu = individu;
     }
 
+    public Access getVehicule() {
+        return vehicule;
+    }
+
+    public void setVehicule(Access vehicule) {
+        this.vehicule = vehicule;
+    }
+
+    public Access getObjet() {
+        return objet;
+    }
+
+    public void setObjet(Access objet) {
+        this.objet = objet;
+    }
+
     public Access getAlert() {
         return alert;
     }
 
     public void setAlert(Access alert) {
         this.alert = alert;
+    }
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", photoUrl='" + photoUrl + '\'' +
+                ", langue='" + langue + '\'' +
+                ", unite='" + unite + '\'' +
+                ", perquisition=" + perquisition +
+                ", individu=" + individu +
+                ", vehicule=" + vehicule +
+                ", objet=" + objet +
+                ", alert=" + alert +
+                '}';
     }
 }

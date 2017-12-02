@@ -2,6 +2,9 @@ package cm.mindef.sed.sicre.mobile;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
+import android.util.Log;
 
 
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -12,7 +15,7 @@ import java.io.File;
  * Created by Ange_Douki on 20/12/2016.
  */
 
-public class MyApplication extends Application {
+public class MyApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
@@ -23,7 +26,8 @@ public class MyApplication extends Application {
     public static void deleteCache(Context context) {
         try {
             File dir = context.getCacheDir();
-            deleteDir(dir);
+            boolean deleted = deleteDir(dir);
+            Log.e("cache cleaned", "cache cleaned");
         } catch (Exception e) {}
     }
 
@@ -42,5 +46,11 @@ public class MyApplication extends Application {
         } else {
             return false;
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(newBase);
+        MultiDex.install(this);
     }
 }

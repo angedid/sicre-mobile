@@ -3,14 +3,108 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="cm.mindef.sed.sicre.mobile.fragments.AlertFragment"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    android:paddingTop="140dp">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/networState_logger"
         android:layout_gravity="center"
         android:gravity="center"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="0dp"
         />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/header"
+        android:layout_below="@id/networState_logger"
+        android:layout_marginTop="0dp"
+        >
+        <ProgressBar
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/progressBar_actualite"
+            android:visibility="visible"
+            android:layout_marginTop="0dp"
+            android:layout_gravity="center_vertical"
+            android:background ="@xml/progress"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="90"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:id="@+id/liste_perquisition_title"
+            android:textSize="14sp"
+            android:text="@string/liste_alert_title"
+            android:textStyle="bold"
+            android:layout_alignParentLeft="true" />
+        <!--<Button android:id="@+id/btn_ajouter"
+            android:layout_marginTop="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_weight="10"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:text="@string/alerter"
+            android:paddingBottom="0dp"
+            android:paddingTop="0dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:textSize="12sp"
+            android:background="@drawable/background_button"
+            android:textColor="@android:color/white"
+            android:textAlignment="center"
+            android:textAllCaps="false"/>-->
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btn_ajouter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:src="@drawable/icons8_sent_24"
+            android:layout_marginTop="0dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="10dp"
+            android:visibility="visible"/>
+
+    </LinearLayout>
+
+
+    <!--<ProgressBar
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:id="@+id/loader"
+        android:foregroundGravity="center"
+        android:layout_centerInParent="true"/>-->
+
+
+
+    <!--<ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/liste_perquisition"
+        android:layout_below="@id/header"
+        />-->
+
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swipeContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/header">
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/news_list"
+            android:paddingBottom="50dp"
+            />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

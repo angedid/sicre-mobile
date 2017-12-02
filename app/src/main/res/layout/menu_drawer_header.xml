@@ -4,14 +4,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <!--<ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/drawer_menu_header_photo"
-        android:src="@drawable/logo_iservices_3d_4"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
-        />-->
     <com.pkmmte.view.CircularImageView
         android:layout_width="80dp"
         android:layout_height="80dp"
@@ -36,7 +28,7 @@
         android:layout_height="wrap_content"
         android:text=""
         android:gravity="center"
-        android:textColor="@color/colorAccent"
+        android:textColor="#0B5345"
         android:id="@+id/connected_user_name"/>
 
 </LinearLayout>

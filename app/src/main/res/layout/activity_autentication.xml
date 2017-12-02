@@ -6,12 +6,13 @@
     tools:context="cm.mindef.sed.sicre.mobile.HomeActivity">
 
 
-
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:id="@+id/appBarLayout">
+        android:id="@+id/appBarLayout"
+        android:textAllCaps="false"
+        >
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -19,16 +20,19 @@
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            app:titleTextColor="@color/colorPrimaryDark"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:textAllCaps="false"/>
     </android.support.design.widget.AppBarLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_below="@id/appBarLayout">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="?attr/actionBarSize"
             android:orientation="vertical"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
@@ -45,18 +49,13 @@
                 android:layout_marginTop="5dp"
                 />
 
-            <TextView
 
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/error_message"
-                android:textColor="@android:color/holo_red_light"
-                android:layout_marginTop="50dp"/>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/TextInputLayout_username"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:theme="@style/TextLabel">
 
                 <EditText
                     android:id="@+id/EditText_username"
@@ -68,7 +67,8 @@
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/TextInputLayout_password"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:theme="@style/TextLabel">
 
                 <EditText
                     android:id="@+id/EditText_password"
@@ -82,16 +82,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/stay_connected"
-                android:onClick="togleStayConnected"/>
+                android:onClick="togleStayConnected"
+                android:visibility="gone"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/error_message"
+                android:textColor="@android:color/holo_red_light"
+                android:layout_marginTop="12dp"/>
 
             <Button android:id="@+id/btn_signup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/connexion"
-                android:background="@drawable/background_button"
-                android:layout_marginTop="40dp"
-                android:textColor="@android:color/white"
-                android:textAlignment="center" />
+                android:background="@drawable/background_button_white"
+                android:layout_marginTop="16dp"
+                android:textColor="#0B5345"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:drawableLeft="@drawable/icons8_login_24"/>
 
 
             <!--<LinearLayout
@@ -114,7 +124,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorAccent"
+        android:background="#0B5345"
         android:gravity="center"
         android:layout_margin="0dp"
         android:padding="0dp">

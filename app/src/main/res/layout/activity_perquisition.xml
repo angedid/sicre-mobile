@@ -26,7 +26,46 @@ android:background="#FFFFFF">
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            app:titleTextColor="@color/colorPrimaryDark"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+
+            <!-- <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+               <Button android:id="@+id/save"
+                    android:layout_marginTop="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_weight="10"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/save"
+                    android:paddingBottom="0dp"
+                    android:paddingTop="0dp"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:textSize="10sp"
+                    android:background="@drawable/background_button_white"
+                    android:textColor="@color/colorAccent"
+                    android:textAlignment="center"
+                    android:layout_gravity="right"
+                    android:onClick="saveAll"
+                    android:visibility="gone"
+                    />
+                <ProgressBar
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/progress_save"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#FFFFFF"
+                    android:visibility="visible"
+                    />
+            </RelativeLayout>-->
+
+
+        </android.support.v7.widget.Toolbar>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
@@ -35,7 +74,10 @@ android:background="#FFFFFF">
             app:tabMaxWidth="0dp"
             app:tabGravity="fill"
             app:tabMode="fixed"
-            app:tabIndicatorColor="@android:color/white"
+            app:tabIndicatorColor="@color/colorPrimaryDark"
+            app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+            app:tabTextColor="@color/colorPrimaryDark"
+            app:tabSelectedTextColor="@color/colorPrimaryDark"
             />
     </android.support.design.widget.AppBarLayout>
 
@@ -53,7 +95,7 @@ android:background="#FFFFFF">
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
-    android:background="@color/colorAccent"
+    android:background="@color/colorPrimaryDark"
     android:gravity="center"
     android:layout_margin="0dp"
     android:padding="0dp">

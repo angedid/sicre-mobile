@@ -12,6 +12,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+
+import com.google.firebase.messaging.RemoteMessage;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,6 +40,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManagerFactory;
 
+import cm.mindef.sed.sicre.mobile.domain.SearchCriteria;
 import cm.mindef.sed.sicre.mobile.domain.User;
 import cm.mindef.sed.sicre.mobile.utils.Constant;
 import cm.mindef.sed.sicre.mobile.utils.Credentials;
@@ -54,6 +58,8 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+
         thisActivity = this;
 
         error_message = (TextView) findViewById(R.id.error_message);
@@ -74,10 +80,17 @@ public class SplashScreenActivity extends AppCompatActivity {
                     Authenticator authenticator = new Authenticator(credentials.getUsername(), credentials.getPassword(), credentials.getStayConnected());
                     authenticator.execute(Constant.URL_LINK + Constant.LOGIN_PATH + "?" + Constant.USERNAME + "=" + credentials.getUsername() +
                     "&" + Constant.PASSWORD + "=" + credentials.getPassword());
+                    Log.e("NKALLA00", "Nkalla000000000000000111111111111111111111");
                 }else{
                     // This method will be executed once the timer is over
                     // Start your app main activity
+                    Bundle bundle = getIntent().getExtras();
                     Intent i = new Intent(getApplicationContext(), AutenticationActivity.class);
+                    if (bundle != null && bundle.get(Constant.REMOTE_MESSAGE) != null){
+                        i.putExtra(Constant.USER, (User)bundle.get(Constant.USER));
+                        i.putExtra(Constant.REMOTE_MESSAGE, (RemoteMessage)bundle.get(Constant.REMOTE_MESSAGE));
+                    }
+
                     startActivity(i);
                     // close this activity
                     finish();
@@ -258,12 +271,26 @@ public class SplashScreenActivity extends AppCompatActivity {
                     return;
                 }
 
+                JSONObject criteriaJsonObj = jsonObject.getJSONObject(Constant.SEARCH_CRITERIA);
+                //Log.e("criteriaJsonObj", criteriaJsonObj.toString());
+                SearchCriteria searchCriteria = SearchCriteria.getInstance(criteriaJsonObj);
+
+
+
+                if (searchCriteria == null){
+                    error_message.setVisibility(View.VISIBLE);
+                    error_message.setText(getString(R.string.an_error_occure) + " voila" );
+                    return;
+                }
+
 
 
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 intent.putExtra(Constant.USERNAME, this.username);
                 intent.putExtra(Constant.PASSWORD, this.password);
                 intent.putExtra(Constant.USER, user);
+
+                intent.putExtra(Constant.SEARCH_CRITERIA, searchCriteria);
 
                 SharedPreferences.Editor editor = getSharedPreferences(Constant.PreferenceCredential, MODE_PRIVATE).edit();
                 editor.putString(Constant.USERNAME, this.username);
@@ -273,6 +300,12 @@ public class SplashScreenActivity extends AppCompatActivity {
                // if (checkbox_stay_connected.isChecked())
                  //   Credentials.saveCredential(getApplicationContext(), this.username, this.password, this.stayConnected);
 
+                Bundle bundle = getIntent().getExtras();
+                if (bundle != null && bundle.get(Constant.REMOTE_MESSAGE) != null){
+                    intent.putExtra(Constant.USER, (User)bundle.get(Constant.USER));
+                    intent.putExtra(Constant.REMOTE_MESSAGE, (RemoteMessage)bundle.get(Constant.REMOTE_MESSAGE));
+                    Log.e("NKALLA", "Nkalla");
+                }
                 startActivity(intent);
                // inputPassword.setText("");
                 finish();

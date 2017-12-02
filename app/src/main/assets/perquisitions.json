@@ -7,7 +7,7 @@
     "preuves_texte": ["text1", "text2", "test3"],
     "preuves_image": ["http://idea-cm.club/training.png", "http://idea-cm.club/gendarmerie.png"],
     "preuves_son": ["http://idea-cm.club/magasino/Vivere.mp3", "http://idea-cm.club/magasino/big_buck_bunny.mp4"],
-    "preuves_video": ["http://idea-cm.club/magasino/big_buck_bunny.mp4", "http://idea-cm.club/magasino/big_buck_bunny.mp4"]
+    "preuves_video": ["http://idea-cm.club/magasino/video.php", "http://idea-cm.club/magasino/video.php"]
   },
   {
     "id":"123452",
@@ -17,7 +17,7 @@
     "preuves_texte": ["text1", "text2", "test3"],
     "preuves_image": ["http://idea-cm.club/training.png", "http://idea-cm.club/gendarmerie.png"],
     "preuves_son": ["http://idea-cm.club/magasino/Vivere.mp3", "http://idea-cm.club/magasino/big_buck_bunny.mp4"],
-    "preuves_video": ["http://idea-cm.club/magasino/big_buck_bunny.mp4", "http://idea-cm.club/magasino/big_buck_bunny.mp4"]
+    "preuves_video": ["http://idea-cm.club/magasino/video.php", "http://idea-cm.club/magasino/video.php"]
      },
   {
     "id":"123453",
@@ -27,7 +27,7 @@
     "preuves_texte": ["text1", "text2", "test3"],
     "preuves_image": ["http://idea-cm.club/training.png", "http://idea-cm.club/gendarmerie.png"],
     "preuves_son": ["http://idea-cm.club/magasino/Vivere.mp3", "http://idea-cm.club/magasino/big_buck_bunny.mp4"],
-    "preuves_video": ["http://idea-cm.club/magasino/big_buck_bunny.mp4", "http://idea-cm.club/magasino/big_buck_bunny.mp4"]
+    "preuves_video": ["http://idea-cm.club/magasino/video.php", "http://idea-cm.club/magasino/video.php"]
   },
   {
     "id":"123458",
@@ -37,6 +37,6 @@
     "preuves_texte": ["text1", "text2", "test3"],
     "preuves_image": ["http://idea-cm.club/training.png", "http://idea-cm.club/gendarmerie.png"],
     "preuves_son": ["http://idea-cm.club/magasino/Vivere.mp3", "http://idea-cm.club/magasino/big_buck_bunny.mp4", "http://idea-cm.club/magasino/front-desk-bells-daniel_simon.wav"],
-    "preuves_video": ["http://idea-cm.club/magasino/big_buck_bunny.mp4", "http://idea-cm.club/magasino/big_buck_bunny.mp4"]
+    "preuves_video": ["http://idea-cm.club/magasino/video.php", "http://idea-cm.club/magasino/video.php"]
   }
 ]

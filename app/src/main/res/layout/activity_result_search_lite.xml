@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context="cm.mindef.sed.sicre.mobile.ResultSearchLiteActivity">
+
+<android.support.design.widget.AppBarLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    android:id="@+id/appBarLayout">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:titleTextColor="@color/colorPrimaryDark"
+        android:titleTextColor="@color/colorPrimaryDark"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+</android.support.design.widget.AppBarLayout>
+<RelativeLayout
+    android:id="@+id/error_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorAccent"
+    android:gravity="center"
+    android:layout_margin="0dp"
+    android:padding="0dp"
+    android:layout_below="@id/appBarLayout"
+    android:layout_marginTop="?attr/actionBarSize"
+    >
+
+    <TextView
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="12sp"
+        android:id="@+id/error_text_view"/>
+</RelativeLayout>
+<RelativeLayout
+    android:id="@+id/result_num_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorAccent"
+    android:gravity="center"
+    android:layout_margin="0dp"
+    android:padding="0dp"
+    android:layout_below="@id/appBarLayout"
+    >
+
+    <TextView
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="12sp"
+        android:id="@+id/result_num_text_view"/>
+</RelativeLayout>
+
+<ListView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/result_list"
+    android:layout_marginTop="80dp"
+    android:paddingTop="5dp"
+    android:layout_marginBottom="25dp"
+    />
+
+<RelativeLayout
+    android:id="@+id/footer_my"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="@color/colorPrimaryDark"
+    android:gravity="center"
+    android:layout_margin="0dp"
+    android:padding="0dp">
+
+    <TextView
+        android:text="@string/footer_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="12sp" />
+</RelativeLayout>
+
+</RelativeLayout>
+

@@ -14,6 +14,9 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -33,21 +36,35 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashScreenActivity">
+        <activity
+            android:name=".SplashScreenActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".SearchActivity" />
-        <activity android:name=".ResultSearchActivity" />
-        <activity android:name=".PerquisitionActivity" />
+        <activity
+            android:name=".HomeActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity
+            android:name=".SearchActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity
+            android:name=".ResultSearchActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity
+            android:name=".PerquisitionActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity android:name=".AddTextActivity" />
-        <activity android:name=".RecorderAudioActivity" />
-        <activity android:name=".RecorderVideoActivity" />
-        <activity android:name=".VideoPlayerActivity" />
+        <activity
+            android:name=".RecorderAudioActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+
+        <activity
+            android:name=".VideoPlayerActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
 
         <service android:name=".MusicService" />
 
@@ -58,44 +75,103 @@
             android:exported="false"
             android:grantUriPermissions="true"/>
         -->
-        <activity android:name=".AddAffaireActivity" />
-        <activity android:name=".AffaireActivity" />
-        <activity android:name=".AutenticationActivity"/>
+        <activity android:name=".AddAffaireActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
+        <activity android:name=".AffaireActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
+        <activity android:name=".AutenticationActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
 
-        <receiver
-            android:name=".AutenticationActivity$NetworkListener">
+        <receiver android:name=".AutenticationActivity$NetworkListener">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".fragments.ChercherFragment$NetworkListener">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".fragments.PerquisitionFragment$NetworkListener">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".fragments.EnregistrementFragment$NetworkListener">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".fragments.AlertFragment$NetworkListener">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
 
-        <receiver
-            android:name=".fragments.ChercherFragment$NetworkListener">
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-        </receiver>
+        <activity
+            android:name=".EnregistrerIndividuActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity
+            android:name=".EnregistrerVehiculeActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity
+            android:name=".EnregistrerObjetActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity
+            android:name=".EnregistrerAffaireActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
 
-        <receiver
-            android:name=".fragments.PerquisitionFragment$NetworkListener">
+        <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-        </receiver>
+        </service>
+        <service android:name=".MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".MyJobService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
+            </intent-filter>
+        </service>
 
-        <receiver
-            android:name=".fragments.EnregistrementFragment$NetworkListener">
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-        </receiver>
+        <!--
+     Set custom default icon. This is used when no icon is set for incoming notification messages.
+     See README(https://goo.gl/l4GJaQ) for more.
+        -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/icons8_google_alerts_24" />
+        <!--
+             Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more.
+        -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@android:color/holo_red_dark" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
 
-        <receiver
-            android:name=".fragments.AlertFragment$NetworkListener">
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-        </receiver>
+        <activity android:name=".AlerterActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
+        <activity android:name=".ResultSearchLiteActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
+        <activity android:name=".FicheIndividuActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
+        <activity android:name=".FicheObjetActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
+
+        <service
+            android:name=".LocationService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".NotificationActivity"></activity>
     </application>
 
 </manifest>

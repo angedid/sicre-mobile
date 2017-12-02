@@ -58,7 +58,7 @@ public class AddTextActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         perquisition = (Perquisition) bundle.get(Constant.PERQUISITION);
         title = findViewById(R.id.title);
-        title.setText(getString(R.string.enregistrement_preuve_txt) + " dans " + perquisition.getAffaire());
+        title.setText(getString(R.string.enregistrement_preuve_txt) + " dans " + perquisition.getDescription());
 
         text = findViewById(R.id.text);
 
@@ -99,7 +99,7 @@ public class AddTextActivity extends AppCompatActivity {
                             result.setVisibility(View.VISIBLE);
                             result.setTextColor(Color.RED);
                             result.setText(texte + "  " + error.getMessage()  + " Ce ci est un message d'erreur");
-                            perquisition.addText(texte + "  " + error.getMessage()  + " Ce ci est un message d'erreur");
+                            perquisition.addPreuve(texte + "  " + error.getMessage()  + " Ce ci est un message d'erreur");
                             Intent data = new Intent();
                             data.putExtra(Constant.PERQUISITION, perquisition);
                             setResult(Activity.RESULT_OK, data);

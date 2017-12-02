@@ -7,16 +7,17 @@
     android:background="@color/colorAccent">
 
    <ImageView
-       android:layout_width="0dp"
-       android:layout_height="75dp"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
        android:layout_weight="18"
        android:src="@drawable/icons8_movie_24"
-       android:id="@+id/video_icon"/>
+       android:id="@+id/video_icon"
+       />
    <TextView
        android:layout_width="0dp"
        android:layout_height="wrap_content"
        android:layout_weight="75"
-       android:textColor="@android:color/white"
+       android:textColor="@color/colorPrimaryDark"
        android:textStyle="bold"
        android:id="@+id/link"
        android:layout_gravity="center"

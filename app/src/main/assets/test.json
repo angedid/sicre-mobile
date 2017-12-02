@@ -1,5 +1,157 @@
 
+
+//1-  fichiers pour les droits d'acces (les creer et tenir compte du parametre user lors de l'implementation)
+//2-  Prendre en consideration les positions (latitude et longitude) dans l'enregistrement des preuves de perquisition
+//3-  Tenir compte des else non considere dans les implementations
+//4-
+
 {
+  "status":"Success",
+  "error_message":"No error",
+  "user":{
+    "name":"Admin",
+    "email":"admin@admin.com",
+    "photo":"http://198.50.199.116:8090/scriptcase/app/SICRE_2/photo_user/",
+    "langue":"1",
+    "unite":"BRIGARDE DE MELEN",
+    "access":{
+      "perquisition":{
+        "access":{
+          "can":"Y",
+          "ressource":"http://198.50.199.116:8090/scriptcase/app/SICRE_2/m_perquisition_search"
+        },
+        "create":{
+          "can":"Y",
+          "ressource":"http://198.50.199.116:8090/scriptcase/app/SICRE_2/m_perquisition_save"
+        },
+        "delete":{
+          "can":"Y",
+          "ressource":"http://198.50.199.116:8090/scriptcase/app/SICRE_2/m_perquisition_delete"
+        },
+        "update":{
+          "can":"Y",
+          "ressource":"http://198.50.199.116:8090/scriptcase/app/SICRE_2/m_perquisition_update"
+        }
+      },
+      "individu":{
+        "access":{
+          "can":"Y",
+          "ressource":"http://198.50.199.116:8090/scriptcase/app/SICRE_2/m_individu_search"
+        },
+        "create":{
+          "can":"Y",
+          "ressource":"http://198.50.199.116:8090/scriptcase/app/SICRE_2/m_individu_save"
+        },
+        "delete":{
+          "can":"Y",
+          "ressource":"http://198.50.199.116:8090/scriptcase/app/SICRE_2/m_individu_delete"
+        },
+        "update":{
+          "can":"Y",
+          "ressource":"http://198.50.199.116:8090/scriptcase/app/SICRE_2/m_individu_update"
+        }
+      },
+      "vehicule":{
+        "access":{
+          "can":"Y",
+          "ressource":"http://198.50.199.116:8090/scriptcase/app/SICRE_2/m_vehicule_search"
+        },
+        "create":{
+          "can":"Y",
+          "ressource":"http://198.50.199.116:8090/scriptcase/app/SICRE_2/m_vehicule_save"
+        },
+        "delete":{
+          "can":"Y",
+          "ressource":"http://198.50.199.116:8090/scriptcase/app/SICRE_2/m_vehicule_delete"
+        },
+        "update":{
+          "can":"Y",
+          "ressource":"http://198.50.199.116:8090/scriptcase/app/SICRE_2/m_vehicule_update"
+        }
+      },
+      "objet":{
+        "access":{
+          "can":"Y",
+          "ressource":"http://198.50.199.116:8090/scriptcase/app/SICRE_2/m_objet_search"
+        },
+        "create":{
+          "can":"Y",
+          "ressource":"http://198.50.199.116:8090/scriptcase/app/SICRE_2/m_objet_save"
+        },
+        "delete":{
+          "can":"Y",
+          "ressource":"http://198.50.199.116:8090/scriptcase/app/SICRE_2/m_objet_delete"
+        },
+        "update":{
+          "can":"Y",
+          "ressource":"http://198.50.199.116:8090/scriptcase/app/SICRE_2/m_objet_update"
+        }
+      },
+      "alert":{
+        "access":{
+          "can":"Y",
+          "ressource":"http://198.50.199.116:8090/scriptcase/app/SICRE_2/m_arlert_search"
+        },
+        "create":{
+          "can":"Y",
+          "ressource":"http://198.50.199.116:8090/scriptcase/app/SICRE_2/m_arlert_save"
+        },
+        "delete":{
+          "can":"Y",
+          "ressource":"http://198.50.199.116:8090/scriptcase/app/SICRE_2/m_arlert_delete"
+        },
+        "update":{
+          "can":"Y",
+          "ressource":"http://198.50.199.116:8090/scriptcase/app/SICRE_2/m_arlert_update"
+        }
+      }
+    }
+  },
+  "search_criteria":{
+    "individu":"http://198.50.199.116:8090/scriptcase/app/SICRE_2/m_criteria/?objet=individu",
+    "vehicule":"http://198.50.199.116:8090/scriptcase/app/SICRE_2/m_criteria/?objet=vehicule",
+    "objet":"http://198.50.199.116:8090/scriptcase/app/SICRE_2/m_criteria/?objet=objet"
+  }
+}
+
+/*
+
+ociparse(): ORA-01756: quoted string not properly terminated
+
+
+[
+  {"id":"102",
+  "description":null,
+  "domaine":null,
+  "objet_saisis":null,
+  "description_lieu":null,
+  "description_objet":null,
+  "declaration_receptionniste":null,
+  "preuve":[],
+  "images":[],
+  "audios":[],
+  "videos":["/opt/Perquisitions/102/102_1509782687","/opt/Perquisitions/102/102_1509782982",
+    "/opt/Perquisitions/102/102_1509783047","/opt/Perquisitions/102/102_1509783247",
+    "/opt/Perquisitions/102/102_1509783447","/opt/Perquisitions/102/102_1509783528",
+    "/opt/Perquisitions/102/102_1509783665","/opt/Perquisitions/102/102_1509783752",
+    "/opt/Perquisitions/102/102_1509783836","/12255/5555/656558",
+    "/opt/Perquisitions/102/102_1509781539","/opt/Perquisitions/102/102_1509781584"]
+  },
+  {
+    "id":"107",
+    "description":"CPP 114, 120 \u00e0 123",
+    "domaine":null,
+    "objet_saisis":null,
+    "description_lieu":"Enqu\u00eate est une \u00e9mission de t\u00e9l\u00e9vision qu\u00e9b\u00e9coise de journalisme d'enqu\u00eate anim\u00e9e par Alain Gravel et diffus\u00e9e depuis 1997 sur la T\u00e9l\u00e9vision de Radio-Canada et sur le R\u00e9seau de l'information. ",
+    "description_objet":null,
+    "declaration_receptionniste":"234",
+    "preuve":[],
+    "images":[],
+    "audios":[],
+    "videos":[]
+  }
+]*/
+/*{
   "status": "success",
   "error_message": "message d'erreur",
   "user":{
@@ -40,7 +192,7 @@
     }
   }
 }
-
+*/
 
 /*
 {"user_data":
@@ -50,7 +202,7 @@
   "vehicule":{"access":"URL VIEW ALL","create":"Y","delete":"Y","update":"Y","export":"Y","print":"Y"}}*/
 
 
-{
+/*{
   "status":"Success",
   "error_message":"invalid parameter",
   "user":{
@@ -63,3 +215,884 @@
         "update":{"can":"Y","ressource":"http://198.50.199.116:8090/scriptcase/sicre_2/m_perquisition"}},
       "controle":{"access":{"can":"Y","ressource":"http://198.50.199.116:8090/scriptcase/sicre_2/m_controle"},
         "create":{"can":"Y","ressource":"http://198.50.199.116:8090/scriptcase/sicre_2/m_controle"},"delete":{"can":"Y","ressource":"http://198.50.199.116:8090/scriptcase/sicre_2/m_controle"},"update":{"can":"Y","ressource":"http://198.50.199.116:8090/scriptcase/sicre_2/m_controle"}},"vehicule":{"access":{"can":"Y","ressource":"http://198.50.199.116:8090/scriptcase/sicre_2/m_vehicule"},"create":{"can":"Y","ressource":"http://198.50.199.116:8090/scriptcase/sicre_2/m_vehicule"},"delete":{"can":"Y","ressource":"http://198.50.199.116:8090/scriptcase/sicre_2/m_vehicule"},"update":{"can":"Y","ressource":"http://198.50.199.116:8090/scriptcase/sicre_2/m_vehicule"}}}}}
+*/
+
+
+/*
+
+if(isset($_POST['username']) && !empty($_POST['username']) && isset($_POST['password']) && !empty($_POST['password']))
+{
+	$slogin 	= sc_sql_injection($_POST['username']);
+	$spswd 		= sc_sql_injection(md5($_POST['password']));
+	$keyword	= $_POST['keyword'];
+	$id			= $_POST['id'];
+	$description= "affaire";
+
+	//echo "<br />" . $_GET['username']
+
+	//echo "keyword=".$keyword;
+	$sql = "SELECT
+			  LOGIN
+			  FROM SC_USERS
+			  WHERE LOGIN = $slogin
+			AND PSWD = ".$spswd."";
+
+
+	sc_lookup(rs, $sql);
+
+	if(count({rs})!= 0)
+	{
+		if( isset($_FILES[$keyword])&&!empty($_FILES[$keyword]))
+		{
+			if (is_uploaded_file($_FILES[$keyword]['tmp_name']))
+			{
+
+
+				//$protocole    = getProtocole();
+				//$path         = substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT']));
+				//$vet          =  explode(DIRECTORY_SEPARATOR, $path);
+				//array_pop($vet);
+				//$path        = implode(DIRECTORY_SEPARATOR, $vet) . DIRECTORY_SEPARATOR;
+				//$url  = $protocole . $_SERVER['SERVER_ADDR'].':'. $_SERVER['SERVER_PORT'] .$path;
+
+
+									$uploads_dir 	= $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR .'perquisitions';
+									$pic_name 		= $id."_".time();
+									$perquisition	= "SELECT
+										PV_ID
+										FROM
+										T_PERQUISITION
+										WHERE PV_ID=".$id;
+									sc_lookup(data1,$perquisition);
+									//echo "<br />" . count({data1});
+
+									if(count({data1})!=0)
+									{
+										$subdir = $uploads_dir.DIRECTORY_SEPARATOR. "perquisition_".$id;
+
+										if (!file_exists($subdir)) {
+											mkdir($subdir, 0777);
+											mkdir($subdir . DIRECTORY_SEPARATOR . "images", 0777);
+											mkdir($subdir . DIRECTORY_SEPARATOR . "audios", 0777);
+											mkdir($subdir . DIRECTORY_SEPARATOR . "videos", 0777);
+
+
+										}
+
+
+										switch($keyword)
+										{
+											case 'video':
+													//$uploads_dir = $uploads_dir.''.$id.'/'.$pic_name;
+											        $uploadFile  = $subdir . DIRECTORY_SEPARATOR . "videos" . DIRECTORY_SEPARATOR.
+														$pic_name;
+													$insert_table  = 'T_PERQUISITION_FILES';
+													$insert_fields = array(
+														 'PER_ID'	 	=> $id,
+														 'LOGIN'	 	=> "'". $_POST['username']."'",
+														 'PFI_TITRE'	=> "'".$keyword."'",
+														 'PFI_NAME' 	=> "'".$pic_name."'",
+														 'PFI_PATH' 	=> "'".$uploadFile."'",
+														 'PFI_TYPE'		=> 1,
+													 );
+
+													// Insert record
+													$insert_sql = 'INSERT INTO ' . $insert_table
+														. ' ('   . implode(', ', array_keys($insert_fields))   . ')'
+														. ' VALUES ('    . implode(', ', array_values($insert_fields)) . ')';
+
+													sc_exec_sql($insert_sql);
+													$tmp_name = $_FILES[$keyword]['tmp_name'];
+													move_uploaded_file($tmp_name, $uploadFile);
+													$data=array(
+													'message'			=>	'Video Uploaded Successfuly',
+													'status'			=>	'Success'
+													);
+													echo json_encode($data);
+													break;
+
+											case 'audio':
+
+													//$uploads_dir = $uploads_dir.''.$id.'/'.$pic_name;
+													 $uploadFile  = $subdir . DIRECTORY_SEPARATOR . "audios" . DIRECTORY_SEPARATOR.
+														$pic_name;
+													$insert_table  = 'T_PERQUISITION_FILES';
+													$insert_fields = array(
+														 'PER_ID'	 	=> $id,
+														 'LOGIN'	 	=> "'". $_POST['username']."'",
+														 'PFI_TITRE'	=> "'".$keyword."'",
+														 'PFI_NAME' 	=> "'".$pic_name."'",
+														 'PFI_PATH' 	=> "'".$uploadFile."'",
+														 'PFI_TYPE'		=> 2,
+													 );
+
+													// Insert record
+													$insert_sql = 'INSERT INTO ' . $insert_table
+														. ' ('   . implode(', ', array_keys($insert_fields))   . ')'
+														. ' VALUES ('    . implode(', ', array_values($insert_fields)) . ')';
+
+													sc_exec_sql($insert_sql);
+													$tmp_name = $_FILES[$keyword]['tmp_name'];
+													move_uploaded_file($tmp_name, $uploadFile);
+													$data=array(
+													'message'			=>	'Audio Uploaded Successfuly',
+													'status'			=>	'Success'
+													);
+													echo json_encode($data);
+													break;
+											case 'image':
+													//$uploads_dir = $uploads_dir.''.$id.'/'.$pic_name;
+
+													$uploadFile  = $subdir . DIRECTORY_SEPARATOR . "images" . DIRECTORY_SEPARATOR.
+														$pic_name;
+													$insert_table  = 'T_PERQUISITION_FILES';
+													$insert_fields = array(
+														 'PER_ID'	 	=> $id,
+														 'LOGIN'	 	=> "'". $_POST['username']."'",
+														 'PFI_TITRE'	=> "'".$keyword."'",
+														 'PFI_NAME' 	=> "'".$pic_name."'",
+														 'PFI_PATH' 	=> "'".$uploadFile."'",
+														 'PFI_TYPE'		=> 3,
+													 );
+
+													// Insert record
+													$insert_sql = 'INSERT INTO ' . $insert_table
+														. ' ('   . implode(', ', array_keys($insert_fields))   . ')'
+														. ' VALUES ('    . implode(', ', array_values($insert_fields)) . ')';
+
+													sc_exec_sql($insert_sql);
+													$tmp_name = $_FILES[$keyword]['tmp_name'];
+													move_uploaded_file($tmp_name, $uploadFile);
+													$data=array(
+													'message'			=>	'Image Uploaded Successfuly',
+													'status'			=>	'Success'
+													);
+													echo json_encode($data);
+													break;
+												default :
+													$data=array(
+													'message'			=>	'Upload failed',
+													'status'			=>	'failed'
+													);
+													echo json_encode($data);
+
+										}
+
+										//echo 'OK';
+									}
+								} else{
+										echo "";
+									  }
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------
+
+
+if(isset($_GET['username']) && !empty($_GET['username']) && isset($_GET['password']) && !empty($_GET['password']))
+{
+	$slogin 	= sc_sql_injection($_GET['username']);
+	$spswd 		= sc_sql_injection(md5($_GET['password']));
+	$sql = "SELECT
+			  LOGIN
+			  FROM SC_USERS
+			  WHERE LOGIN = $slogin
+			AND PSWD = ".$spswd."";
+
+
+	sc_lookup(rs, $sql);
+
+	if(count({rs})!= 0)
+	{
+		$path = $_GET['path'];
+		if(isset($path) and !empty($path)){
+			$fp = fopen($path, 'r');
+			echo fread($fp,filesize($path));
+			fclose($fp);
+		}else{
+			//echo
+		}
+	}
+
+}
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+ 	m_alert 	Clique para adicionar 	Clique para adicionar 	admin 	11/21/17 08:19 	dépassées
+Exécuter Modifier Copier Renommer
+		m_alert_form 	Clique para adicionar 	Clique para adicionar 	admin 	11/09/17 03:59 	Mise à jour
+Exécuter Modifier Copier Renommer
+		m_criteria 	Clique para adicionar 	Clique para adicionar 	admin 	11/20/17 14:10 	Mise à jour
+Exécuter Modifier Copier Renommer
+		m_enregistrement_affaire 	Clique para adicionar 	Clique para adicionar 	admin 	11/07/17 08:20 	Mise à jour
+Exécuter Modifier Copier Renommer
+		m_enregistrement_individu 	Clique para adicionar 	Clique para adicionar 	admin 	11/18/17 11:22 	Mise à jour
+Exécuter Modifier Copier Renommer
+		m_enregistrement_objet 	Clique para adicionar 	Clique para adicionar 	admin 	11/18/17 17:11 	Mise à jour
+Exécuter Modifier Copier Renommer
+		m_get_file 	Clique para adicionar 	Clique para adicionar 	admin 	11/23/17 13:38 	Mise à jour
+Exécuter Modifier Copier Renommer
+		m_group_alert 	Clique para adicionar 	Clique para adicionar 	admin 	11/18/17 19:51 	Mise à jour
+Exécuter Modifier Copier Renommer
+		m_login 	Clique para adicionar 	Clique para adicionar 	admin 	11/17/17 15:58 	Mise à jour
+Exécuter Modifier Copier Renommer
+		m_perquisition_search 	Clique para adicionar 	Clique para adicionar 	admin 	11/23/17 13:36 	Mise à jour
+Exécuter Modifier Copier Renommer
+		m_perquisition_update 	Clique para adicionar 	Clique para adicionar 	admin 	11/18/17 07:59 	dépassées
+Exécuter Modifier Copier Renommer
+		m_photo_individu 	Clique para adicionar 	Clique para adicionar 	admin 	11/18/17 05:43 	Mise à jour
+Exécuter Modifier Copier Renommer
+		m_photo_objet 	Clique para adicionar 	Clique para adicionar 	admin 	11/18/17 06:24 	Mise à jour
+Exécuter Modifier Copier Renommer
+		m_research 	Clique para adicionar 	Clique para adicionar 	admin 	11/18/17 06:43 	Mise à jour
+Exécuter Modifier Copier Renommer
+		m_save_token 	Clique para adicionar 	Clique para adicionar 	admin 	11/08/17 09:41 	Mise à jour
+Exécuter Modifier Copier Renommer
+		m_signaler 	Clique para adicionar 	Clique para adicionar 	admin 	11/22/17 16:16 	Mise à jour
+Exécuter Modifier Copier Renommer
+		m_test 	Clique para adicionar 	Clique para adicionar 	admin 	11/20/17 10:03 	Mise à jour
+Exécuter Modifier Copier Renommer
+		m_type_document 	Clique para adicionar 	Clique para adicionar 	admin 	11/07/17 20:04 	Mise à jour
+Exécuter Modifier Copier Renommer
+		photo_user 	Clique para adicionar 	Clique para adicionar 	admin 	11/20/17 17:36 	Mise à jour
+Exécuter Modifier Copier Renommer
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////Enregistrement/////////////////////////////////////////////
+
+
+
+/*$uuid = sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+			// 32 bits for "time_low"
+			mt_rand(0, 0xffff), mt_rand(0, 0xffff),
+
+			// 16 bits for "time_mid"
+			mt_rand(0, 0xffff),
+
+			// 16 bits for "time_hi_and_version",
+			// four most significant bits holds version number 4
+			mt_rand(0, 0x0fff) | 0x4000,
+
+			// 16 bits, 8 bits for "clk_seq_hi_res",
+			// 8 bits for "clk_seq_low",
+			// two most significant bits holds zero and one for variant DCE1.1
+			mt_rand(0, 0x3fff) | 0x8000,
+
+			// 48 bits for "node"
+			mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
+		);
+
+echo $uuid;*/
+//$_GET = $_POST;
+if (isset($_POST['username']) && !empty($_POST['username']) && isset($_POST['password']) && !empty($_POST['password'])
+&& isset($_POST['name']) && !empty($_POST['name']) && isset($_POST['surname']) && !empty($_POST['surname'])
+&& isset($_POST['doctype']) && !empty($_POST['doctype']) && isset($_POST['docnum']) && !empty($_POST['docnum'])
+&& isset($_POST['raison']) && !empty($_POST['raison'])
+&& isset($_POST['latitude']) && !empty($_POST['latitude']) && isset($_POST['longitude']) && !empty($_POST['longitude'])){
+
+$slogin = sc_sql_injection($_POST['username']);
+$spswd = sc_sql_injection(md5($_POST['password']));
+
+$sql = "SELECT
+LOGIN
+FROM SC_USERS U
+LEFT JOIN T_ENTITE E ON E.ENT_ID = U.ENT_ID
+WHERE LOGIN = $slogin
+AND PSWD = " . $spswd . "";
+
+sc_lookup(rs, $sql);
+
+if (count({rs}) == 0){
+$statut = "failed";
+}else{
+$name = $_POST['name'];
+$surname = $_POST['surname'];
+$doctype = $_POST['doctype'];
+$docnum = $_POST['docnum'];
+$raison = $_POST['raison'];
+$latitude = $_POST['latitude'];
+$longitude = $_POST['longitude'];
+
+
+$realpath = '';
+$uploads_dir = "";
+$pic_name = "";
+$realpath = "";
+
+
+$uuid = sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+// 32 bits for "time_low"
+mt_rand(0, 0xffff), mt_rand(0, 0xffff),
+
+// 16 bits for "time_mid"
+mt_rand(0, 0xffff),
+
+// 16 bits for "time_hi_and_version",
+// four most significant bits holds version number 4
+mt_rand(0, 0x0fff) | 0x4000,
+
+// 16 bits, 8 bits for "clk_seq_hi_res",
+// 8 bits for "clk_seq_low",
+// two most significant bits holds zero and one for variant DCE1.1
+mt_rand(0, 0x3fff) | 0x8000,
+
+// 48 bits for "node"
+mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
+);
+
+// sauvegarde de l'individu
+$insert_table = 'T_INDIVIDU';
+$insert_fields = array(   // Field list, add as many as needed
+'IND_NOM' => "'" . $name . "'",
+'IND_PRENOM' => "'" . $surname . "'",
+'UUID' => "'" . $uuid . "'",
+);
+
+// Insert record
+$insert_sql = 'INSERT INTO ' . $insert_table
+. ' (' . implode(', ', array_keys($insert_fields)) . ')'
+. ' VALUES (' . implode(', ', array_values($insert_fields)) . ')';
+
+sc_exec_sql($insert_sql);
+
+
+// sauvegarde de l'identification/**
+sc_lookup(ds, "select IND_ID
+from T_INDIVIDU
+where UUID = '$uuid'");
+
+$id = {ds[0][0]};
+$id = (int)$id;
+$doctype = (int)$doctype;
+
+
+// SQL statement parameters
+$insert_table = 'T_PIECE_IDENTIFICATION';      // Table name
+$insert_fields = array(   // Field list, add as many as needed
+'IND_ID' => $id,
+'TID_ID' => $doctype,
+'PID_NUMERO' => "'" . $docnum . "'",
+);
+
+$insert_sql = 'INSERT INTO ' . $insert_table
+. ' (' . implode(', ', array_keys($insert_fields)) . ')'
+. ' VALUES (' . implode(', ', array_values($insert_fields)) . ')';
+
+sc_exec_sql($insert_sql);
+
+
+$insert_table = 'T_LOCALISATION';      // Table name
+$insert_fields = array(   // Field list, add as many as needed
+'LOC_LONGITUDE' => $longitude,
+'LOC_LATITUDE' => $latitude,
+'UUID' => "'" . $uuid . "'",
+);
+
+//$uuid = "1";
+// Insert record
+$insert_sql = 'INSERT INTO ' . $insert_table
+. ' (' . implode(', ', array_keys($insert_fields)) . ')'
+. ' VALUES (' . implode(', ', array_values($insert_fields)) . ')';
+
+sc_exec_sql($insert_sql);
+
+$myquery = "select LOC_ID  from T_LOCALISATION  where UUID = '$uuid'";
+//echo $myquery;
+sc_lookup(ds, $myquery);
+
+$lastid = {ds[0][0]};
+
+
+$update_table = 'T_INDIVIDU';
+$update_where = "IND_ID= $id";
+$update_fields = array(
+"LOC_ID = $lastid"
+);
+
+
+// Update record
+$update_sql = 'UPDATE ' . $update_table
+. ' SET ' . implode(', ', $update_fields)
+. ' WHERE ' . $update_where;
+sc_exec_sql($update_sql);
+//Sauvegarder la photo
+
+/*sc_lookup(ds2, "select PHO_ID
+from TG_PHOTO
+where PHO_ID = ( select max(PHO_ID) from TG_PHOTO )  ");*/
+
+//$lastid2 = {ds2[0][0]};
+//$lastid2 = (int)$lastid2 +1;
+
+
+
+if (is_uploaded_file($_FILES['image']['tmp_name'])) {
+//$uploads_dir = './';
+$tmp_name = $_FILES['image']['tmp_name'];
+$pic_name = $_FILES['image']['name'];
+//move_uploaded_file($tmp_name, $uploads_dir.$pic_name);
+//$realpath = realpath($uploads_dir.$pic_name);
+$arr_conn = array();
+$fReadHandle = fopen($tmp_name, 'rb');
+$fileSize = $_FILES['image']['size'];
+$fileContent = fread($fReadHandle, $fileSize);
+sc_connection_edit("conn_oracle", $arr_conn);
+$conn = oci_connect('sauvegarde', 'Gugoum@2017', 'localhost/xe') or die('connection failed !');
+
+//$conn = oci_connect($arr_conn['user'] ,$arr_conn['password'] ,$arr_conn['server'] .':1521/'.$arr_conn['database']) or die('connection failed !');
+$sql = "INSERT INTO TG_PHOTO (IND_ID, PHO_PHOTO_FACE) VALUES($id, empty_blob()) RETURNING PHO_PHOTO_FACE INTO :image";
+
+$result = oci_parse($conn, $sql);
+$blob = oci_new_descriptor($conn, OCI_D_LOB);
+oci_bind_by_name($result, ":image", $blob, -1, OCI_B_BLOB);
+oci_execute($result, OCI_DEFAULT) or die ("Unable to execute query");
+
+if (!$blob->save($fileContent)) {
+oci_rollback($conn);
+} else {
+oci_commit($conn);
+}
+
+oci_free_statement($result);
+$blob->free();
+
+echo 1;
+
+
+} else {
+echo 0;
+}
+}
+}
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+if((isset($_GET['username']) && !empty($_GET['username']) && isset($_GET['password']) && !empty($_GET['password'])
+&& isset($_GET['titre']) && !empty($_GET['titre']) && isset($_GET['owner']) && !empty($_GET['owner'])
+&& isset($_GET['description']) && !empty($_GET['description']) &&  isset($_GET['latitude']) && !empty($_GET['latitude'])
+&& isset($_GET['longitude']) && !empty($_GET['longitude']) && isset($_GET['vehicule']) && !empty($_GET['vehicule']))
+or
+
+(isset($_GET['username']) && !empty($_GET['username']) && isset($_GET['password']) && !empty($_GET['password'])
+&& isset($_GET['owner']) && !empty($_GET['owner']) && isset($_GET['cartegrise']) && !empty($_GET['cartegrise'])
+&& isset($_GET['matricule']) && !empty($_GET['matricule']) && isset($_GET['chassis']) && !empty($_GET['chassis'])
+&& isset($_GET['marque']) && !empty($_GET['marque']) && isset($_GET['titre']) && !empty($_GET['titre'])
+&&  isset($_GET['latitude']) && !empty($_GET['latitude']) && isset($_GET['longitude']) && !empty($_GET['longitude'])
+&& isset($_GET['vehicule']) && !empty($_GET['vehicule']))){
+
+$slogin = sc_sql_injection($_GET['username']);
+$spswd = sc_sql_injection(md5($_GET['password']));
+
+$sql = "SELECT
+PRIV_ADMIN,
+ACTIVE,
+\"NAME\",
+EMAIL,
+PHOTO,
+LAN_ID,
+U.ENT_ID,
+E.ENT_NOM
+FROM SC_USERS U
+LEFT JOIN T_ENTITE E ON E.ENT_ID = U.ENT_ID
+WHERE LOGIN = $slogin
+AND PSWD = ".$spswd."";
+
+
+sc_lookup(rs, $sql);
+//echo count({rs});
+if(count({rs}) == 0)
+{
+$statut = "failed";
+}
+else if({rs[0][1]} == 'Y')
+{
+$titre = isset($_GET['titre'])?  $_GET['titre']: "";
+$owner = isset($_GET['owner'])?  $_GET['owner']: "";
+$description = isset($_GET['description'])?  $_GET['description']: "";
+$matricule = isset($_GET['matricule'])?  $_GET['matricule']: "";
+$chassis = isset($_GET['chassis'])?  $_GET['chassis']: "";
+$cartegrise = isset($_GET['cartegrise'])?  $_GET['cartegrise']: "";
+$marque = isset($_GET['marque'])?  $_GET['marque']: "";
+$latitude = $_GET['latitude'];
+$longitude = $_GET['longitude'];
+
+$uuid = sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+// 32 bits for "time_low"
+mt_rand(0, 0xffff), mt_rand(0, 0xffff),
+
+// 16 bits for "time_mid"
+mt_rand(0, 0xffff),
+
+// 16 bits for "time_hi_and_version",
+// four most significant bits holds version number 4
+mt_rand(0, 0x0fff) | 0x4000,
+
+// 16 bits, 8 bits for "clk_seq_hi_res",
+// 8 bits for "clk_seq_low",
+// two most significant bits holds zero and one for variant DCE1.1
+mt_rand(0, 0x3fff) | 0x8000,
+
+// 48 bits for "node"
+mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
+);
+
+
+// sauvegarde de l'objet
+
+if (is_uploaded_file($_FILES['image']['tmp_name'])) {
+//$uploads_dir = './';
+$tmp_name = $_FILES['image']['tmp_name'];
+$pic_name = $_FILES['image']['name'];
+//move_uploaded_file($tmp_name, $uploads_dir.$pic_name);
+//$realpath = realpath($uploads_dir.$pic_name);
+$arr_conn = array();
+$fReadHandle = fopen($tmp_name, 'rb');
+$fileSize = $_FILES['image']['size'];
+$fileContent = fread($fReadHandle, $fileSize);
+sc_connection_edit("conn_oracle", $arr_conn);
+$conn = oci_connect('sauvegarde', 'Gugoum@2017', 'localhost/xe') or die('connection failed !');
+
+//$conn = oci_connect($arr_conn['user'] ,$arr_conn['password'] ,$arr_conn['server'] .':1521/'.$arr_conn['database']) or die('connection failed !');
+$sql = "INSERT INTO T_OBJET (OBJ_TITRE, OBJ_DESCRIPTION, NOM_PROPRIETAIRE, UUID, OBJ_IMAGE) VALUES('$titre', '$description', '$owner', '$uuid', empty_blob()) RETURNING OBJ_IMAGE INTO :image";
+
+$result = oci_parse($conn, $sql);
+$blob = oci_new_descriptor($conn, OCI_D_LOB);
+oci_bind_by_name($result, ":image", $blob, -1, OCI_B_BLOB);
+oci_execute($result, OCI_DEFAULT) or die ("Unable to execute query");
+
+if (!$blob->save($fileContent)) {
+oci_rollback($conn);
+} else {
+oci_commit($conn);
+}
+
+oci_free_statement($result);
+$blob->free();
+
+$q = "select OBJ_ID  from T_OBJET  where UUID = '$uuid'";
+//echo $myquery;
+sc_lookup(ds0, $q);
+
+$id = {ds0[0][0]};
+
+
+$insert_table = 'T_LOCALISATION';      // Table name
+$insert_fields = array(   // Field list, add as many as needed
+'LOC_LONGITUDE' => $longitude,
+'LOC_LATITUDE' => $latitude,
+'UUID' => "'" . $uuid . "'",
+);
+
+//$uuid = "1";
+// Insert record
+$insert_sql = 'INSERT INTO ' . $insert_table
+. ' (' . implode(', ', array_keys($insert_fields)) . ')'
+. ' VALUES (' . implode(', ', array_values($insert_fields)) . ')';
+
+sc_exec_sql($insert_sql);
+
+$myquery = "select LOC_ID  from T_LOCALISATION  where UUID = '$uuid'";
+//echo $myquery;
+sc_lookup(ds, $myquery);
+
+$lastid = {ds[0][0]};
+
+
+$update_table = 'T_OBJET';
+$update_where = "OBJ_ID= $id";
+$update_fields = array(
+"LOC_ID = $lastid"
+);
+
+
+// Update record
+$update_sql = 'UPDATE ' . $update_table
+. ' SET ' . implode(', ', $update_fields)
+. ' WHERE ' . $update_where;
+sc_exec_sql($update_sql);
+
+
+
+if($_GET['vehicule'] == 'true'){
+
+$insert_table = 'T_VEHICULE';      // Table name
+$insert_fields = array(   // Field list, add as many as needed
+'OBJ_ID' => $id,
+'VEH_CHASSIS' => "'" . $chassis . "'",
+'VEH_NUMERO_CARTE_GRISE' => "'" . $cartegrise . "'",
+'VEH_IMMATRICULATION' => "'" . $matricule . "'",
+'VEH_MARQUE' => "'" . $marque . "'",
+'SYS_ACTIF' =>  1,
+'UUID' => "'" . $uuid . "'",
+);
+
+//$uuid = "1";
+// Insert record
+$insert_sql = 'INSERT INTO ' . $insert_table
+. ' (' . implode(', ', array_keys($insert_fields)) . ')'
+. ' VALUES (' . implode(', ', array_values($insert_fields)) . ')';
+
+sc_exec_sql($insert_sql);
+}
+echo 1;
+
+
+} else {
+echo 0;
+}
+
+}
+
+}
+
+
+
+*/
+
+
+
+private class UploadFileAsync extends AsyncTask<String, Void, String> {
+private AlertDialog dialog;
+
+public UploadFileAsync(){
+dialog = new SpotsDialog(EnregistrerIndividuActivity.thisActivity);
+}
+@Override
+protected String doInBackground(String... params) {
+
+String url_string = params[0];
+
+Log.e("urlllllllllllll", url_string);
+String returnVal = "";
+String query = params[1];
+Log.e("query", query);
+//String sourceFileUri = uir_string;
+
+HttpURLConnection conn = null;
+DataOutputStream dos = null;
+//OutputStream out = null;
+String lineEnd = "\r\n";
+String twoHyphens = "--";
+String boundary = "*****";
+int bytesRead, bytesAvailable, bufferSize;
+byte[] buffer;
+int maxBufferSize = 1 * 1024 * 1024;
+
+try {
+
+//String upLoadServerUri =url_string; /*"http://idea-cm.club/magasino/enregistrement.php";*/
+
+URL url = new URL(url_string + query);
+FileInputStream fileInputStream = new FileInputStream(imageFile);
+
+// Open a HTTP connection to the URL
+conn = (HttpURLConnection) url.openConnection();
+
+//conn.setDoInput(true);//Allow Inputs
+conn.setDoOutput(true);//Allow Outputs
+conn.setUseCaches(false);//Don't use a cached Copy
+conn.setRequestMethod("POST");
+conn.setRequestProperty("Connection", "Keep-Alive");
+conn.setRequestProperty("Cache-Control", "no-cache");
+conn.setRequestProperty("ENCTYPE", "multipart/form-data");
+conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+conn.setRequestProperty("image",imageFile.getAbsolutePath());
+
+//creating new dataoutputstream
+dos = new DataOutputStream(conn.getOutputStream());
+
+//writing bytes to data outputstream
+dos.writeBytes(twoHyphens + boundary + lineEnd);
+dos.writeBytes("Content-Disposition: form-data; name=\"image\";filename=\"" + imageFile.getName() + "\"" + lineEnd);
+
+/*dos = new DataOutputStream(conn.getOutputStream());
+//out = new BufferedOutputStream(conn.getOutputStream());
+
+//BufferedWriter writer = new BufferedWriter (new OutputStreamWriter(out, "UTF-8"));
+
+//writer.write(urlParameters);
+
+
+//dos.write(postData);
+
+dos.writeBytes(twoHyphens + boundary + lineEnd);
+dos.writeBytes("Content-Disposition: form-data; name=\"image\";filename=\"individu\"" + lineEnd);*/
+
+dos.writeBytes(lineEnd);
+
+Log.e("3333333333333333333333","333333333333333333333333333333333333333333333333");
+
+// create a buffer of maximum size
+bytesAvailable = fileInputStream.available();
+
+bufferSize = Math.min(bytesAvailable, maxBufferSize);
+buffer = new byte[bufferSize];
+
+// read file and write it into form...
+bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+
+Log.e("bytesAvailable","" + bytesAvailable);
+
+while (bytesRead > 0) {
+dos.write(buffer, 0, bufferSize);
+bytesAvailable = fileInputStream.available();
+bufferSize = Math.min(bytesAvailable, maxBufferSize);
+bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+Log.e("image size:::::::::::", "" + bufferSize);
+}
+
+// send multipart form data necesssary after file
+// data...
+dos.writeBytes(lineEnd);
+dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+Log.e("444444444444","44444444444444444444444444444444444444444444444444444444444");
+dos.flush();
+dos.close();
+
+// Responses from the server (code and message)
+int serverResponseCode = conn.getResponseCode();
+String serverResponseMessage = conn.getResponseMessage();
+
+InputStream in = conn.getInputStream();
+
+Log.e("serverResponseCode", " " + serverResponseCode);
+
+if (serverResponseCode >= 200 && serverResponseCode < 300) {
+
+// messageText.setText(msg);
+//Toast.makeText(ctx, "File Upload Complete.",
+//      Toast.LENGTH_SHORT).show();
+
+// recursiveDelete(mDirectory1);
+
+BufferedReader br = null;
+StringBuilder sb = new StringBuilder();
+String line;
+try {
+br = new BufferedReader(new InputStreamReader(in));
+while ((line = br.readLine()) != null) {
+sb.append(line);
+}
+
+} catch (IOException e) {
+return Constant.KO + " 1           " + e.getMessage();
+} finally {
+if (br != null) {
+try {
+br.close();
+} catch (IOException e) {
+return Constant.KO + " 2         " + e.getMessage();
+}
+}
+}
+in.close();
+Log.e("55555555555555555","55555555555555555555555555555555555555555555555");
+Log.e("sb.toString()", sb.toString());
+returnVal = sb.toString();
+
+}else {
+Log.e(Constant.KO + " 3     " ,Constant.KO + " 3     " );
+returnVal =  Constant.KO + " 3     " ;
+}
+
+
+} catch (MalformedURLException e) {
+
+// dialog.dismiss();
+e.printStackTrace();
+return Constant.KO +  " 4    " + e.toString();
+
+} catch (ProtocolException e) {
+e.printStackTrace();
+return Constant.KO +  " 5    " + e.toString();
+} catch (IOException e) {
+e.printStackTrace();
+return Constant.KO +  " 6    " + e.toString();
+}
+
+return returnVal;
+}
+
+@Override
+protected void onPostExecute(String result) {
+super.onPostExecute(result);
+if (dialog.isShowing()) {
+dialog.dismiss();
+}
+
+
+Log.e("returnValllll", result);
+
+error_message = findViewById(R.id.error_message);
+if (result.equals("1")){
+error_message.setText("Succesfully saved");
+error_message.setTextColor(Color.GREEN);
+photo_individu.setImageDrawable(null);
+EditText_name.setText("");
+EditText_surname.setText("");
+EditText_doc_number.setText("");
+EditText_doc_raison.setText("");
+}else{
+error_message.setText("Failed to save data");
+error_message.setTextColor(Color.RED);
+}
+
+
+}
+
+@Override
+protected void onPreExecute() {
+super.onPreExecute();
+dialog.setMessage(getResources().getString(R.string.chargement));
+dialog.show();
+
+}
+
+@Override
+protected void onProgressUpdate(Void... values) {
+
+}
+}
